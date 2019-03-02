@@ -22,7 +22,7 @@ function main() {
     <div class="header">
       <img class="logo" height="75px" width="75px" src="images/mapd-logo.png" />
       <div class="title-slider">
-        <h2 class="title">Parking Violations by Month: Philadelphia</h2>
+        <h2 class="title">Paradise, CA 2018 Campfire</h2>
         <div class="slider-controls">
           <input class="slider" type="range" min="0" max="11" step="1" value="0" />
           <button class="play-pause">PLAY</button>

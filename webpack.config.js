@@ -48,7 +48,7 @@ module.exports = {
   plugins: [
     new CleanWebpackPlugin(["dist"]),
     new HtmlWebpackPlugin({
-      title: "MapD Backend Vega Rendering with MapboxGL",
+      title: "Paradise, CA 2018 Campfire",
       inject: false,
       template: require('html-webpack-template'),
       appMountId: 'app'
