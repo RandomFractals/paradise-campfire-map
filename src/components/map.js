@@ -1,21 +1,17 @@
-import { debounce } from '../common/utils';
-import dispatcher from '../common/dispatcher';
+import { debounce, dispatcher } from '../common/dispatcher';
 import { mapboxAccessToken, mapboxConfig } from '../common/config'
 
 let map = null;
 mapboxgl.accessToken = mapboxAccessToken;
 
 export const initMap = () => {
-  // initialize mapbox map
   map = new mapboxgl.Map(mapboxConfig);
-
-  // add map navigation controls
   map.addControl(new mapboxgl.NavigationControl());
 
+  // add map move event handler
   function update() {
     dispatcher.call('mapMove', null);
   }
-
   map.on('move', debounce(update, 100));
 
   return map;
@@ -44,11 +40,7 @@ export const clearMap = () => {
 }
 
 export const setBounds = bounds => {
-  map.fitBounds([bounds._sw, bounds._ne],
-    {
-      linear: true
-    }
-  );
+  map.fitBounds([bounds._sw, bounds._ne], {linear: true});
 }
 
 export const getBounds = () => map.getBounds();
@@ -61,27 +53,25 @@ export const updateMap = (vegaImage) => {
       [mapBounds.getSouthEast().lng, mapBounds.getSouthEast().lat],
       [mapBounds.getSouthWest().lng, mapBounds.getSouthWest().lat]
     ];
-
-  if (typeof map.getLayer('overlay') === 'undefined') {
-    var toBeAddedOverlay = 'overlay';
-    map.addSource(toBeAddedOverlay, {
+  const mapOverlayName = 'overlay';
+  if (typeof map.getLayer(mapOverlayName) === 'undefined') {
+    map.addSource(mapOverlayName, {
       type: 'image',
       url: vegaImage,
       coordinates: imageBounds
     });
     map.addLayer({
-      id: toBeAddedOverlay,
-      source: toBeAddedOverlay,
+      id: mapOverlayName,
+      source: mapOverlayName,
       type: 'raster',
       paint: {'raster-opacity': 0.85, 'raster-fade-duration': 0}
     });
   }
-  else {
-    var overlayName = 'overlay';
-    var imageSrc = map.getSource(overlayName);
+  else {    
+    const imageSrc = map.getSource(mapOverlayName);
     imageSrc.updateImage({
       url: vegaImage,
       coordinates: imageBounds
     });
   }
-}
+};

@@ -1,6 +1,6 @@
 import { updateMap } from '../components/map';
 import { renderVega } from './mapd-connector';
-import { conv4326To900913 } from './utils';
+import { conv4326To900913 } from './map-utils';
 import sls from 'single-line-string';
 
 export const createVegaSpec = ({
@@ -102,7 +102,7 @@ export const createVegaSpec = ({
   ]
 });
 
-export function updateVega(map, dateString = '2012-01-01 00:00:00') {
+export function updateVega(map, dateString = '2018-11-08 00:00:00') {
   const container = map.getContainer();
   const height = container.clientHeight;
   const width = container.clientWidth;

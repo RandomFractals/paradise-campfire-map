@@ -1,5 +1,5 @@
 import throttle from 'lodash.throttle';
-import dispatcher from '../common/dispatcher';
+import { dispatcher } from '../common/dispatcher';
 import {
   monthCount,
   timeFormatter,

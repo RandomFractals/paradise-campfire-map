@@ -5,7 +5,7 @@ import { updateTimeLabel } from '../components/time-label';
 import { timeFormatter, monthYearFormatter } from './time-utils';
 
 // use d3's dispatch module to handle updating the map on user events
-const dispatcher = dispatch('sliderInput', 'mapMove');
+export const dispatcher = dispatch('sliderInput', 'mapMove');
 
 dispatcher.on('sliderInput', (value) => {
   updateVega(getMap(), timeFormatter(value));
@@ -16,4 +16,22 @@ dispatcher.on('mapMove', () => {
   updateVega(getMap());
 });
 
-export default dispatcher;
+
+export function debounce(funct, wait, immediate) {
+  let timeout;
+  return function() {
+    const context = this, args = arguments;
+    const later = () => {
+      timeout = null;
+      if (!immediate) {
+        funct.apply(context, args);
+      }
+    };
+    const callNow = immediate && !timeout;
+    clearTimeout(timeout);
+    timeout = setTimeout(later, wait);
+    if (callNow) {
+      funct.apply(context, args);
+    }
+  };
+};
