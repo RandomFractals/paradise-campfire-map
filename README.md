@@ -1,7 +1,7 @@
 # paradise-campfire-map
 omniSci visualization of Paradise, California 2018 campfire
 
-![](src/images/paradise-campfire-map.map)
+![](src/images/paradise-campfire-map.png)
 
 ## Install
 
