@@ -1,23 +1,23 @@
 import { timeParser } from './time-utils';
 
 // map data replay start and end date
-export const startDate = timeParser('January 01 2012');
-export const endDate = timeParser('December 31 2017');
+export const startDate = timeParser('November 08 2018');
+export const endDate = timeParser('November 25 2018');
 
 // access token for MapboxGLJS
 // https://www.mapbox.com/mapbox-gl-js/api/
 // https://docs.mapbox.com/help/how-mapbox-works/access-tokens/
 // https://docs.mapbox.com/help/glossary/access-token/
-export const mapboxAccessToken = 'apikey';
+export const mapboxAccessToken = 'apiKey';
 
 export const mapboxConfig = {
   container: 'map',
-  style: 'mapbox://styles/mapbox/dark-v9',
-  center: [-97.5,39.8],
+  style: 'mapbox://styles/mapbox/light-v9',
+  center: [-121.6219177, 39.7596061],
   zoom: 2,
   minZoom: 2,
   maxZoom: 16,
-  maxBounds: [[-75.651855,39.760519], [-74.665833,40.183070]]
+  maxBounds: [[-121.82057757193864, 39.43823008560554], [-121.38840846343999, 39.868764602121246]]
 };
 
 // mapd server connection string
