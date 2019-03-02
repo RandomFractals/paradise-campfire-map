@@ -19,20 +19,21 @@ body {
 }
 
 .header {
-  height: 100px;
+  height: 80px;
   font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
   display: flex;
+  padding: 0px;
 }
 
 .logo {
-  height: calc(100% - 30px);
+  height: calc(100% - 10px);
   width: auto;
   display: block;
   padding-left: 15px;
   padding-right: 15px;
 }
 
-.title-slider {
+.title-bar {
   height: 100%;
   flex-grow: 2;
 }
@@ -43,14 +44,22 @@ body {
 
 .slider-controls {
   display: flex;
-  align-items: baseline;
+  align-items: flex-start;
+  vertical-align: middle;
+  padding-left: 20px;
+  padding-bottom: 10px;
 }
 
 .slider {
-  width: 150px;
+  width: 100%;
+  margin-right: 5px;
+}
+
+.play-pause-button {
   margin-right: 15px;
 }
 
-.play-pause {
-  margin-right: 15px;
+.time-label {
+  width: 360px;
+  font-size: 14pt;
 }

@@ -14,7 +14,7 @@ const delay = totalTime / monthCount;
 function stop () {
   isPlaying = false;
   timerInstance.stop();
-  playPauseButton.innerHTML = 'PLAY';
+  playPauseButton.innerHTML = '&#9654;'; // play
 }
 
 function play () {
@@ -23,10 +23,10 @@ function play () {
   }
 
   isPlaying = true;
-  playPauseButton.innerHTML = 'PAUSE';
+  playPauseButton.innerHTML = '&#9208;'; // pause
   sliderValue = getValue();
   timerInstance = interval(elapsed => {
-    // console.log(elapsed);
+    // console.log('play-pause-control:time-elapsed:', elapsed);
     if (!isPlaying) {
       stop();
     } else if (sliderValue > monthCount) {
@@ -49,6 +49,6 @@ function onClick (event) {
 }
 
 export function initPlayPauseButton () {
-  playPauseButton = document.querySelector('button.play-pause');
+  playPauseButton = document.querySelector('.play-pause-button');
   playPauseButton.addEventListener('click', onClick);
 }
