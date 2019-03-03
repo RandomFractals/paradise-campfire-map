@@ -16,15 +16,21 @@ export const createVegaSpec = ({
   data: [
     {
       name: "pointmapLayer0",
-      sql:
-        "SELECT conv_4326_900913_x(ST_X(omnisci_geo)) as x, conv_4326_900913_y(ST_Y(omnisci_geo)) as y, DAMAGE as color, ca_camp_fire_structure_damage_assessment.rowid FROM ca_camp_fire_structure_damage_assessment WHERE ((ST_X(omnisci_geo) >= -121.7589794573183 AND ST_X(omnisci_geo) <= -121.44653840057856) AND (ST_Y(omnisci_geo) >= 39.62174350843846 AND ST_Y(omnisci_geo) <= 39.85314811573045)) LIMIT 2000000"
+      sql: `SELECT conv_4326_900913_x(ST_X(omnisci_geo)) as x, 
+          conv_4326_900913_y(ST_Y(omnisci_geo)) as y, 
+          DAMAGE as color, ca_camp_fire_structure_damage_assessment.rowid 
+        FROM ca_camp_fire_structure_damage_assessment 
+        WHERE ((ST_X(omnisci_geo) >= -121.7589794573183 AND ST_X(omnisci_geo) <= -121.44653840057856) 
+          AND (ST_Y(omnisci_geo) >= 39.62174350843846 AND ST_Y(omnisci_geo) <= 39.85314811573045)) 
+        LIMIT 2000000`
     },
     {
       name: "backendChoroplethLayer1",
       format: "polys",
       geocolumn: "omnisci_geo",
-      sql:
-        "SELECT ca_butte_county_parcels.rowid as rowid FROM ca_butte_county_parcels WHERE (ca_butte_county_parcels.LandUse ILIKE '%RS%')"
+      sql: `SELECT ca_butte_county_parcels.rowid as rowid 
+        FROM ca_butte_county_parcels 
+        WHERE (ca_butte_county_parcels.LandUse ILIKE '%RS%')`
     }
   ],
   scales: [
