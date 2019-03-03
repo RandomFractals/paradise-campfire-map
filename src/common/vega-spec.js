@@ -1,8 +1,6 @@
 import { updateMap } from "../components/map";
 import { renderVega } from "./mapd-connector";
 import { conv4326To900913 } from "./map-utils";
-import sls from "single-line-string";
-import { max } from "gl-matrix/src/gl-matrix/vec4";
 
 export const createVegaSpec = ({
   width,
