@@ -2,6 +2,7 @@ import { updateMap } from '../components/map';
 import { renderVega } from './mapd-connector';
 import { conv4326To900913 } from './map-utils';
 import sls from 'single-line-string';
+import { max } from 'gl-matrix/src/gl-matrix/vec4';
 
 export const createVegaSpec = ({
   width,
@@ -16,17 +17,27 @@ export const createVegaSpec = ({
   "height": height,
   "data": [
     {
-      "name": "pointmap",
+      "name": "pointmapLayer0",
       "sql": sls`
         SELECT
-        conv_4326_900913_x(lon) as x,
-        conv_4326_900913_y(lat) as y,
-        issuing_agency as color,
-        parking_violations.rowid
-        FROM parking_violations
-        WHERE conv_4326_900913_x(lon) between ${minXBounds} and ${maxXBounds}
-        AND conv_4326_900913_y(lat) between ${minYBounds} and ${maxYBounds}
-        AND date_trunc(month, issue_datetime) = '${dateString}'
+        conv_4326_900913_x(ST_X(omnisci_geo)) as x, 
+        conv_4326_900913_y(ST_Y(omnisci_geo)) as y, 
+        DAMAGE as color,
+        ca_camp_fire_structure_damage_assessment.rowid
+        FROM ca_camp_fire_structure_damage_assessment
+        WHERE ((ST_X(omnisci_geo) >= ${minXBounds} AND ST_X(omnisci_geo) <= ${maxXBounds})
+        AND (ST_Y(omnisci_geo) >= ${minYBounds} AND (ST_Y(omnisci_geo) <= ${maxYBounds}))
+        LIMIT 2000000
+      `
+    },
+    {
+      "name": "backendChoroplethLayer1",
+      "format": "polys",
+      "geocolumn": "omnisci_geo",
+      "sql": sls`
+        SELECT ca_butte_county_parcels.rowid as rowid 
+        FROM ca_butte_county_parcels 
+        WHERE (ca_butte_county_parcels.LandUse ILIKE '%RS%')
       `
     }
   ],
@@ -44,60 +55,62 @@ export const createVegaSpec = ({
       "range": "height"
     },
     {
-      "name": "pointmap_fillColor",
+      "name": "pointmapLayer0_fillColor",
       "type": "ordinal",
       "domain": [
-        "PPA",
-        "POLICE",
-        "CENTER C",
-        "SEPTA",
-        "PENN",
-        "TEMPLE",
-        "HOUSING",
-        "PRISONS",
-        "FAIRMNT",
-        "UNASSIGN",
+        "Destroyed (>50%)",
+        "Affected (1-9%)",
+        "Minor (10-25%)",
+        "Major (26-50%)",
         "Other"
       ],
       "range": [
-        "rgba(234,85,69,0.85)",
-        "rgba(189,207,50,0.85)",
-        "rgba(179,61,198,0.85)",
-        "rgba(239,155,32,0.85)",
-        "rgba(135,188,69,0.85)",
-        "rgba(244,106,155,0.85)",
-        "rgba(172,229,199,0.85)",
-        "rgba(237,225,91,0.85)",
-        "rgba(131,109,197,0.85)",
-        "rgba(134,216,127,0.85)",
-        "rgba(39,174,239,0.85)"
+        "rgba(234,85,69,1)",
+        "rgba(189,207,50,1)",
+        "rgba(179,61,198,1)",
+        "rgba(239,155,32,1)",
+        "rgba(39,174,239,1)"
       ],
-      "default": "rgba(39,174,239,0.85)",
-      "nullValue": "rgba(202,202,202,0.85)"
+      "default": "rgba(39,174,239,1)",
+      "nullValue": "rgba(202,202,202,1)"
     }
   ],
-  "projections": [],
+  "projections": [
+    {
+      "name": "mercator_map_projection",
+      "type": "mercator",
+      "bounds": {
+        "x": [minXBounds, maxXBounds],
+        "y": [minYBounds, maxYBounds]
+      }
+    }
+  ],
   "marks": [
     {
-      "type": "points",
-      "from": {
-        "data": "pointmap"
-      },
+      "type": "symbol",
+      "from": { "data": "pointmapLayer0" },
       "properties": {
-        "x": {
-          "scale": "x",
-          "field": "x"
-        },
-        "y": {
-          "scale": "y",
-          "field": "y"
-        },
-        "fillColor": {
-          "scale": "pointmap_fillColor",
-          "field": "color"
-        },
-        "size": 2
+        "xc": { "scale": "x", "field": "x" },
+        "yc": { "scale": "y", "field": "y" },
+        "fillColor": { "scale": "pointmapLayer0_fillColor", "field": "color" },
+        "shape": "circle",
+        "width": 6,
+        "height": 6
       }
+    },
+    {
+      "type": "polys",
+      "from": { "data": "backendChoroplethLayer1" },
+      "properties": {
+        "x": { "field": "x" },
+        "y": { "field": "y" },
+        "fillColor": { "value": "rgba(39,174,239,0.2)" },
+        "strokeColor": "white",
+        "strokeWidth": 1,
+        "lineJoin": "miter",
+        "miterLimit": 10
+      },
+      "transform": { "projection": "mercator_map_projection" }
     }
   ]
 });
