@@ -50,11 +50,10 @@ async function renderVega (vegaSpec, vegaOptions = {returnTiming: true}) {
       if (error) {
         reject(error.message);
       } else {
-        console.log(`
-          Execution Time: ${result.execution_time_ms}
-          Render Time: ${result.render_time_ms}
-          Total Time: ${result.total_time_ms}
-        `);
+        console.log('mapd-connector:renderVega: exe:', result.execution_time_ms,
+          'render:', result.render_time_ms,
+          'total:', result.total_time_ms,
+          '(ms)');
         var blobUrl = `data:image/png;base64,${result.image}`;
         resolve(blobUrl);
       }
