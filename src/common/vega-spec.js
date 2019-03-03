@@ -3,9 +3,8 @@ import { renderVega } from "./mapd-connector";
 import { conv4326To900913 } from "./map-utils";
 
 export const createVegaSpec = ({width, height, xMin, xMax, yMin, yMax, dateString}) => {
-  console.log("vega-spec:updateVage:mapBounds:[w,y] [xMin, xMax, yMin, yMax]", 
-    [width, height], [xMin, xMax, yMin, yMax]);
-  // TODO: plugin date param in query (per day or hr???)
+  console.log('vega-spec:updateVega(): mapBounds:', [width, height], [xMin, xMax, yMin, yMax]);
+  // TODO: plug in date param in query (per day or hr???)
   const vegaSpec = {
     width: width,
     height: height,
@@ -116,8 +115,7 @@ export function updateVega(map, dateString = "2018-11-08 00:00:00") {
 
   const vegaSpec = createVegaSpec({width, height, xMin, xMax, yMin, yMax, dateString});
 
-  console.log("vega-spec:updateVage:mapBounds:[w,y] [xMin, xMax, yMin, yMax]", 
-    [width, height], [xMin, xMax, yMin, yMax]);
+  console.log('vega-spec:updateVega(): mapBounds:', [width, height], [xMin, xMax, yMin, yMax]);
 
   // render the vega and add it to the map
   renderVega(vegaSpec)
