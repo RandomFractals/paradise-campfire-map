@@ -32,13 +32,13 @@ export const createVegaSpec = ({width, height, xMin, xMax, yMin, yMax, dateStrin
       {
         name: "x",
         type: "linear",
-        domain: [-13555964.625327317, -13525018.495338732],
+        domain: [xMin, xMax],
         range: "width"
       },
       {
         name: "y",
         type: "linear",
-        domain: [4802130.144704299, 4842172.415544986],
+        domain: [yMin, yMax],
         range: "height"
       },
       {
