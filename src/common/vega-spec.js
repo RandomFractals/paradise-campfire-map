@@ -8,11 +8,12 @@ export const createVegaSpec = ({map, dateString}) => {
   const mapWidth = mapContainer.clientWidth;
   const mapHeight = mapContainer.clientHeight;
   
-  // convert SW/NE map bounds back to our custom mercator x/y
+  // convert SW/NE map bounds back to our custom Mercator x/y
   const {_sw, _ne} = map.getBounds();
   const [xMin, yMin] = conv4326To900913([_sw.lng, _sw.lat]);
   const [xMax, yMax] = conv4326To900913([_ne.lng, _ne.lat]);
-  console.log('vega-spec:createVega(): mapBounds:', [mapWidth, mapHeight], [xMin, xMax, yMin, yMax]);
+  console.log('vega-spec:createVega(): x/y mapBounds:', [mapWidth, mapHeight], [xMin, xMax, yMin, yMax]);
+  console.log('vega-spec:createVega(): NE/SW mapBounds:', _ne, _sw);
 
   // TODO: plug in date param in query (per day or hr???)
   const vegaSpec = {
