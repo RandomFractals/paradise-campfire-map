@@ -5,19 +5,19 @@ import { conv4326To900913 } from "./map-utils";
 export const createVegaSpec = ({map, dateString}) => {
   // get map size
   const mapContainer = map.getContainer();
-  const height = mapContainer.clientHeight;
-  const width = mapContainer.clientWidth;
+  const mapWidth = mapContainer.clientWidth;
+  const mapHeight = mapContainer.clientHeight;
   
   // convert SW/NE map bounds back to our custom mercator x/y
   const {_sw, _ne} = map.getBounds();
   const [xMin, yMin] = conv4326To900913([_sw.lng, _sw.lat]);
   const [xMax, yMax] = conv4326To900913([_ne.lng, _ne.lat]);
-  console.log('vega-spec:updateVega(): mapBounds:', [width, height], [xMin, xMax, yMin, yMax]);
+  console.log('vega-spec:createVega(): mapBounds:', [mapWidth, mapHeight], [xMin, xMax, yMin, yMax]);
 
   // TODO: plug in date param in query (per day or hr???)
   const vegaSpec = {
-    width: width,
-    height: height,
+    width: mapWidth,
+    height: mapHeight,
     data: [
       {
         name: "pointmapLayer0",
