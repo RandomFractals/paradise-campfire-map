@@ -2,8 +2,18 @@ import { updateMap } from "../components/map";
 import { renderVega } from "./mapd-connector";
 import { conv4326To900913 } from "./map-utils";
 
-export const createVegaSpec = ({width, height, xMin, xMax, yMin, yMax, dateString}) => {
+export const createVegaSpec = ({map, dateString}) => {
+  // get map size
+  const mapContainer = map.getContainer();
+  const height = mapContainer.clientHeight;
+  const width = mapContainer.clientWidth;
+  
+  // convert SW/NE map bounds back to our custom mercator x/y
+  const {_sw, _ne} = map.getBounds();
+  const [xMin, yMin] = conv4326To900913([_sw.lng, _sw.lat]);
+  const [xMax, yMax] = conv4326To900913([_ne.lng, _ne.lat]);
   console.log('vega-spec:updateVega(): mapBounds:', [width, height], [xMin, xMax, yMin, yMax]);
+
   // TODO: plug in date param in query (per day or hr???)
   const vegaSpec = {
     width: width,
@@ -105,19 +115,7 @@ export const createVegaSpec = ({width, height, xMin, xMax, yMin, yMax, dateStrin
 };
 
 export function updateVega(map, dateString = "2018-11-08 00:00:00") {
-  const container = map.getContainer();
-  const height = container.clientHeight;
-  const width = container.clientWidth;
-
-  const {_sw, _ne} = map.getBounds();
-  const [xMin, yMin] = conv4326To900913([_sw.lng, _sw.lat]);
-  const [xMax, yMax] = conv4326To900913([_ne.lng, _ne.lat]);
-
-  const vegaSpec = createVegaSpec({width, height, xMin, xMax, yMin, yMax, dateString});
-
-  console.log('vega-spec:updateVega(): mapBounds:', [width, height], [xMin, xMax, yMin, yMax]);
-
-  // render the vega and add it to the map
+  const vegaSpec = createVegaSpec({map, dateString});
   renderVega(vegaSpec)
     .then(result => {
       updateMap(result);
