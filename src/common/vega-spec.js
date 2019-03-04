@@ -79,7 +79,7 @@ export const createVegaSpec = ({map, dateString}) => {
         type: "mercator",
         bounds: {
           x: [_sw.lng, _ne.lng],
-          y: [_sw.lat, _sw.lat]
+          y: [_sw.lat, _ne.lat]
         }
       }
     ],
