@@ -63,3 +63,60 @@ body {
   width: 360px;
   font-size: 14pt;
 }
+
+/* legend-box styles */
+.legend-box {
+  max-width: 200px !important;
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  background: white;
+  padding: 10px;
+  border-radius: 5px;
+  border-color: #999;
+  border-style: solid;
+  border-width: thin;
+}
+
+.legend-box .legend-title {
+  text-align: left;
+  margin-bottom: 5px;
+  font-weight: bold;
+  font-size: 90%;
+}
+
+.legend-box .legend-scale ul {
+  margin: 0;
+  margin-bottom: 5px;
+  padding: 0;
+  float: left;
+  list-style: none;
+}
+
+.legend-box .legend-scale ul li {
+  font-size: 80%;
+  list-style: none;
+  margin-left: 0;
+  line-height: 18px;
+  margin-bottom: 2px;
+}
+
+.legend-box ul.legend-labels li span {
+  display: block;
+  float: left;
+  height: 16px;
+  width: 16px;
+  margin-right: 5px;
+  margin-left: 0;
+  border: 1px solid #999;
+}
+
+.legend-box .legend-source {
+  font-size: 70%;
+  color: #999;
+  clear: both;
+}
+
+.legend-box a {
+  color: #777;
+}

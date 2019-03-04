@@ -30,7 +30,20 @@ function main() {
       <button class="play-pause-button">&#9654;</button><!-- play -->
       <label class="time-label"></label>
     </div>
-    <div id="map"></div>`;
+    <div id="map"></div>
+    <div class='legend-box'>
+      <div class='legend-title'>Buildings:</div>
+      <div class='legend-scale'>
+        <ul class='legend-labels'>
+          <li><span style='background: rgba(234,85,69,1);'></span>Destroyed (>50%)</li>
+          <li><span style='background: rgba(189,207,50,1);'></span>Affected (1-9%)</li>
+          <li><span style='background: rgba(179,61,198,1);'></span>Minor (10-25%)</li>
+          <li><span style='background: rgba(239,155,32,1);'></span>Major (26-50%)</li>
+          <li><span style='background: rgba(39,174,239,1);'></span>Other</li>
+        </ul>
+      </div>
+      <div class='legend-source'>Source: <a href="#link to source">Name of source</a></div>
+    </div>`;
 
   // initialize app controls
   const map = initMap();
