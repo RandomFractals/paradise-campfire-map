@@ -8,10 +8,10 @@ export const createVegaSpec = ({map, dateString}) => {
   const mapWidth = mapContainer.clientWidth;
   const mapHeight = mapContainer.clientHeight;
   
-  // convert SW/NE map bounds back to our custom Mercator x/y
-  const {_sw, _ne} = map.getBounds();
-  const [xMin, yMin] = conv4326To900913([_sw.lng, _sw.lat]);
+  // convert NE/SW map bounds back to our custom Mercator x/y
+  const {_ne, _sw} = map.getBounds();
   const [xMax, yMax] = conv4326To900913([_ne.lng, _ne.lat]);
+  const [xMin, yMin] = conv4326To900913([_sw.lng, _sw.lat]);
   console.log('vega-spec:createVega(): x/y mapBounds:', [mapWidth, mapHeight], [xMin, xMax, yMin, yMax]);
   console.log('vega-spec:createVega(): NE/SW mapBounds:', _ne, _sw);
 
@@ -78,8 +78,8 @@ export const createVegaSpec = ({map, dateString}) => {
         name: "mercator_map_projection",
         type: "mercator",
         bounds: {
-          x: [-121.77530215585907, -121.49730834028996],
-          y: [39.5594664692064, 39.836231966725734]
+          x: [_sw.lng, _ne.lng],
+          y: [_sw.lat, _sw.lat]
         }
       }
     ],
