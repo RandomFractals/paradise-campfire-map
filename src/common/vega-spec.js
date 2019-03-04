@@ -26,8 +26,8 @@ export const createVegaSpec = ({map, dateString}) => {
           conv_4326_900913_y(ST_Y(omnisci_geo)) as y, 
           DAMAGE as color, ca_camp_fire_structure_damage_assessment.rowid 
         FROM ca_camp_fire_structure_damage_assessment 
-        WHERE ((ST_X(omnisci_geo) >= ${xMin} AND ST_X(omnisci_geo) <= ${xMax}) 
-          AND (ST_Y(omnisci_geo) >= ${yMin} AND ST_Y(omnisci_geo) <= ${yMax}))
+        WHERE ((ST_X(omnisci_geo) >= ${_sw.lng} AND ST_X(omnisci_geo) <= ${_ne.lng}) 
+          AND (ST_Y(omnisci_geo) >= ${_sw.lat} AND ST_Y(omnisci_geo) <= ${_ne.lat}))
         LIMIT 2000000`
       },
       {
