@@ -1,15 +1,12 @@
-import { timeParser } from './time-utils';
-
 // map data replay start and end date
-export const startDateString = '2018-11-08 00:00:00';
-export const startDate = timeParser('November 08 2018');
-export const endDate = timeParser('November 25 2018');
+export const startDate = new Date('2018-11-08');
+export const endDate = new Date('2018-11-26');
 
 // access token for MapboxGLJS
 // https://www.mapbox.com/mapbox-gl-js/api/
 // https://docs.mapbox.com/help/how-mapbox-works/access-tokens/
 // https://docs.mapbox.com/help/glossary/access-token/
-export const mapboxAccessToken = 'apiKey';
+export const mapboxAccessToken = '<mapbox-access-token>';
 
 export const mapboxConfig = {
   container: 'map',

@@ -10,7 +10,7 @@ let slider = null;
 const WAIT_TIME_MS = 100;
 
 function onInput(event) {
-  console.log('slider:input:', event.target.value, 
+  console.log('time-slider:input:', event.target.value, 
     'endDate:', timeFormatter(timeScale.invert(event.target.value)));
   dispatcher.call(
     'sliderInput',
@@ -32,8 +32,9 @@ export function getValue() {
   return Number(slider.value);
 }
 
-export function initSlider() {
-  slider = document.querySelector('input.slider');
+export function initTimeSlider() {
+  slider = document.querySelector('input.time-slider');
+  console.log('time-slider:dayCount:', dayCount);
   slider.setAttribute('max', dayCount);
   slider.addEventListener('input', 
     throttle(onInput, WAIT_TIME_MS, { leading: true }));

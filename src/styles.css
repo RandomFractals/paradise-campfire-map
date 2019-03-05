@@ -42,7 +42,8 @@ body {
   width: 100%;
 }
 
-.slider-controls {
+/* time-controls css */
+.time-controls {
   display: flex;
   align-items: flex-start;
   vertical-align: middle;
@@ -50,7 +51,7 @@ body {
   padding-bottom: 10px;
 }
 
-.slider {
+.time-slider {
   width: 100%;
   margin-right: 5px;
 }
@@ -61,7 +62,7 @@ body {
 
 .time-label {
   width: 360px;
-  font-size: 14pt;
+  font-size: 13pt;
 }
 
 /* legend-box styles */

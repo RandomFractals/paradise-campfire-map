@@ -1,5 +1,5 @@
 import { interval } from 'd3-timer';
-import { updateSliderPosition, getValue } from './slider';
+import { updateSliderPosition, getValue } from './time-slider';
 import { dayCount } from '../common/time-utils';
 
 let playPauseButton = null;

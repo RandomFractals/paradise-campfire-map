@@ -10,9 +10,9 @@ import {
   saveConnection 
 } from './common/mapd-connector';
 import { initMap } from './components/map';
-import { initSlider } from './components/slider';
+import { initTimeSlider } from './components/time-slider';
 import { initTimeLabel } from './components/time-label';
-import { initPlayPauseButton } from './components/play-pause-control';
+import { initPlayPauseButton } from './components/play-pause-button';
 
 // main app bootstrapping on content loaded
 document.addEventListener('DOMContentLoaded', main);
@@ -25,8 +25,8 @@ function main() {
         <h2 class="title">Paradise, CA 2018 Campfire</h2>
       </div>
     </div>
-    <div class="slider-controls">
-      <input class="slider" type="range" min="0" max="11" step="1" value="0" />
+    <div class="time-controls">
+      <input class="time-slider" type="range" min="0" max="18" step="1" value="0" />
       <button class="play-pause-button">&#9654;</button><!-- play -->
       <label class="time-label"></label>
     </div>
@@ -47,7 +47,7 @@ function main() {
 
   // initialize app controls
   const map = initMap();
-  const slider = initSlider();
+  const timeSlider = initTimeSlider();
   initTimeLabel();
   initPlayPauseButton();
 
