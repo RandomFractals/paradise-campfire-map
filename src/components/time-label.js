@@ -10,8 +10,7 @@ export function initTimeLabel() {
 }
 
 export function updateTimeLabel(date) {
-  timeLabel.innerHTML = dayFormatter(
-    new Date(date.getTime() + (date.getTimezoneOffset() * 60000))); // to UTC
+  timeLabel.innerHTML = dayFormatter(date);
 }
 
 export default timeLabel;
