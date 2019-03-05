@@ -116,7 +116,7 @@ export const createVegaSpec = ({map, endDateString}) => {
   return vegaSpec;
 };
 
-export function updateVega(map, endDateString = "2018-11-25 23:59:59") {
+export function updateVega(map, endDateString = "2018-11-26 00:00:00") {
   const vegaSpec = createVegaSpec({map, endDateString});
   renderVega(vegaSpec)
     .then(result => {
