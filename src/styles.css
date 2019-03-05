@@ -105,11 +105,12 @@ body {
 .legend-box ul.legend-labels li span {
   display: block;
   float: left;
-  height: 16px;
-  width: 16px;
+  height: 12px;
+  width: 12px;
   margin-right: 5px;
   margin-left: 0;
   border: 1px solid #999;
+  border-radius: 3px;
 }
 
 .legend-box .legend-source {
