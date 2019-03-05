@@ -10,7 +10,8 @@ let slider = null;
 const WAIT_TIME_MS = 100;
 
 function onInput(event) {
-  console.log('slider:input:', timeFormatter(timeScale.invert(event.target.value)));
+  console.log('slider:input:', event.target.value, 
+    'endDate:', timeFormatter(timeScale.invert(event.target.value)));
   dispatcher.call(
     'sliderInput',
     null,
