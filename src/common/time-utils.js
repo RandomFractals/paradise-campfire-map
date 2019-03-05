@@ -5,8 +5,8 @@ import { startDate, endDate } from './config';
 
 // https://github.com/d3/d3-time-format#locale_format
 const parseString = '%B %d %Y';
-const timeFormatString = '%Y-%m-01 00:00:00';
-const dayFormatString = '%B %Y';
+const timeFormatString = '%Y-%m-%d 00:00:00';
+const dayFormatString = '%B , %A, %I%p'; // November 8, Monday, 6AM
 
 export const timeParser = timeParse(parseString);
 export const timeFormatter = timeFormat(timeFormatString);
