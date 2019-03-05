@@ -1,7 +1,7 @@
 import throttle from 'lodash.throttle';
 import { dispatcher } from '../common/dispatcher';
 import {
-  monthCount,
+  dayCount,
   timeFormatter,
   timeScale
 } from '../common/time-utils';
@@ -33,7 +33,7 @@ export function getValue() {
 
 export function initSlider() {
   slider = document.querySelector('input.slider');
-  slider.setAttribute('max', monthCount);
+  slider.setAttribute('max', dayCount);
   slider.addEventListener('input', 
     throttle(onInput, WAIT_TIME_MS, { leading: true }));
   return slider;

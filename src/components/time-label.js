@@ -1,11 +1,11 @@
 import { startDate } from '../common/config';
-import { monthYearFormatter } from '../common/time-utils';
+import { dayFormatter } from '../common/time-utils';
 
 let timeLabel = null;
 
 export function initTimeLabel() {
-  timeLabel = document.querySelector('.time-label');
-  timeLabel.innerHTML = monthYearFormatter(startDate);
+  timeLabel = document.querySelector('label.time-label');
+  timeLabel.innerHTML = dayFormatter(startDate);
 }
 
 export function updateTimeLabel(value) {

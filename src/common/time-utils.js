@@ -5,15 +5,15 @@ import { startDate, endDate } from './config';
 
 // https://github.com/d3/d3-time-format#locale_format
 const parseString = '%B %d %Y';
-const formatString = '%Y-%m-01 00:00:00';
-const monthYearFormatString = '%B %Y';
+const timeFormatString = '%Y-%m-01 00:00:00';
+const dayFormatString = '%B %Y';
 
 export const timeParser = timeParse(parseString);
-export const timeFormatter = timeFormat(formatString);
-export const monthYearFormatter = timeFormat(monthYearFormatString);
+export const timeFormatter = timeFormat(timeFormatString);
+export const dayFormatter = timeFormat(dayFormatString);
 
-export const monthCount = timeMonth.count(startDate, endDate);
+export const dayCount = timeDay.count(startDate, endDate);
 
 export const timeScale = scaleTime()
-  .range([0, monthCount])
+  .range([0, dayCount])
   .domain([startDate, endDate]);

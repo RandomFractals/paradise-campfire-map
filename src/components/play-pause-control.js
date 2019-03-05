@@ -1,6 +1,6 @@
 import { interval } from 'd3-timer';
 import { updateSliderPosition, getValue } from './slider';
-import { monthCount } from '../common/time-utils';
+import { dayCount } from '../common/time-utils';
 
 let playPauseButton = null;
 let timerInstance = null;
@@ -9,7 +9,7 @@ let sliderValue = 0;
 
 const ONE_SEC = 1000;
 const totalTime = 10 * 10 * ONE_SEC;
-const delay = totalTime / monthCount;
+const delay = totalTime / dayCount;
 
 function stop () {
   isPlaying = false;
@@ -26,10 +26,10 @@ function play () {
   playPauseButton.innerHTML = '&#9208;'; // pause
   sliderValue = getValue();
   timerInstance = interval(elapsed => {
-    // console.log('play-pause-control:time-elapsed:', elapsed);
+    console.log('play-pause-control:time-elapsed:', elapsed);
     if (!isPlaying) {
       stop();
-    } else if (sliderValue > monthCount) {
+    } else if (sliderValue > dayCount) {
       sliderValue = 0;
       updateSliderPosition(sliderValue);
     } else {
@@ -49,6 +49,6 @@ function onClick (event) {
 }
 
 export function initPlayPauseButton () {
-  playPauseButton = document.querySelector('.play-pause-button');
+  playPauseButton = document.querySelector('button.play-pause-button');
   playPauseButton.addEventListener('click', onClick);
 }
