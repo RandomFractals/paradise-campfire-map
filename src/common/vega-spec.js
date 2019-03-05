@@ -2,7 +2,7 @@ import { updateMap } from "../components/map";
 import { renderVega } from "./mapd-connector";
 import { conv4326To900913 } from "./map-utils";
 
-export const createVegaSpec = ({map, dateString}) => {
+export const createVegaSpec = ({map, endDateString}) => {
   // get map size
   const mapContainer = map.getContainer();
   const mapWidth = mapContainer.clientWidth;
@@ -14,6 +14,7 @@ export const createVegaSpec = ({map, dateString}) => {
   const [xMin, yMin] = conv4326To900913([_sw.lng, _sw.lat]);
   console.log('vega-spec:createVega(): x/y mapBounds:', [mapWidth, mapHeight], [xMin, xMax, yMin, yMax]);
   console.log('vega-spec:createVega(): NE/SW mapBounds:', _ne, _sw);
+  console.log('vega-spec:createVega(): endDate:', endDateString);
 
   // TODO: plug in date param in query (per day or hr???)
   const vegaSpec = {
@@ -115,8 +116,8 @@ export const createVegaSpec = ({map, dateString}) => {
   return vegaSpec;
 };
 
-export function updateVega(map, dateString = "2018-11-08 00:00:00") {
-  const vegaSpec = createVegaSpec({map, dateString});
+export function updateVega(map, endDateString = "2018-11-25 23:59:59") {
+  const vegaSpec = createVegaSpec({map, endDateString});
   renderVega(vegaSpec)
     .then(result => {
       updateMap(result);
