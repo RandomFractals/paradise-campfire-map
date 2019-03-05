@@ -2,7 +2,6 @@ const path = require("path");
 const CleanWebpackPlugin = require("clean-webpack-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-const NameAllModulesPlugin = require('name-all-modules-plugin');
 const webpack = require("webpack");
 
 module.exports = {
@@ -53,8 +52,6 @@ module.exports = {
       template: require('html-webpack-template'),
       appMountId: 'app'
     }),
-    new webpack.NamedModulesPlugin(),
-    new NameAllModulesPlugin(),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.ProvidePlugin({
       mapboxgl: "mapbox-gl/dist/mapbox-gl"
