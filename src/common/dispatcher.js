@@ -2,14 +2,14 @@ import { dispatch } from 'd3-dispatch';
 import { updateVega } from './vega-spec';
 import { getMap } from '../components/map';
 import { updateTimeLabel } from '../components/time-label';
-import { timeFormatter, dayFormatter } from './time-utils';
+import { timeFormatter } from './time-utils';
 
 // use d3's dispatch module to handle updating the map on user events
 export const dispatcher = dispatch('sliderInput', 'mapMove');
 
-dispatcher.on('sliderInput', (value) => {
-  updateVega(getMap(), timeFormatter(value));
-  updateTimeLabel(dayFormatter(value));
+dispatcher.on('sliderInput', (date) => {
+  updateVega(getMap(), timeFormatter(date));
+  updateTimeLabel(date);
 });
 
 dispatcher.on('mapMove', () => {

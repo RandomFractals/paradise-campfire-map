@@ -47,7 +47,7 @@ function main() {
 
   // initialize app controls
   const map = initMap();
-  const timeSlider = initTimeSlider();
+  initTimeSlider();
   initTimeLabel();
   initPlayPauseButton();
 
@@ -64,7 +64,7 @@ function main() {
         // render updated vega spec and add it to the map
         updateVega(map);
       } else {
-        throw Error("MapD back-end rendering is not enabled :(");
+        throw Error('omniSci back-end rendering is not enabled :(');
       }
     })
     .catch(error => {

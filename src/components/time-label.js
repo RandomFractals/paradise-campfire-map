@@ -8,8 +8,8 @@ export function initTimeLabel() {
   timeLabel.innerHTML = dayFormatter(startDate);
 }
 
-export function updateTimeLabel(value) {
-  timeLabel.innerHTML = value;
+export function updateTimeLabel(date) {
+  timeLabel.innerHTML = dayFormatter(date);
 }
 
 export default timeLabel;
