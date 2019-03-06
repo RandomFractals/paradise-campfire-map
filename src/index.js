@@ -21,7 +21,7 @@ function main() {
   // render markup for our UI
   document.querySelector("#app").innerHTML = `
     <div class="header">
-      <img class="logo" height="75px" width="75px" src="images/mapd-logo.png" />
+      <img class="logo" height="75px" width="75px" src="images/omni-sci-logo.png" />
       <div class="title-bar">
         <h2 class="title">Paradise, CA 2018 Campfire</h2>
       </div>
