@@ -14,6 +14,8 @@ import { initTimeSlider } from './components/time-slider';
 import { initTimeLabel } from './components/time-label';
 import { initPlayPauseButton } from './components/play-pause-button';
 import { initCounterLabel, updateCounterLabel } from './components/counter-label';
+import { initDamageChart, updateDamageChart } from './components/damage-chart';
+import { initAcresChart, updateAcresChart } from './components/acres-chart';
 
 // main app bootstrapping on content loaded
 document.addEventListener('DOMContentLoaded', main);
@@ -40,12 +42,12 @@ function main() {
         <div class="chart">
           <span class="chart-title">Damaged Buildings</span>
           <hr />
-          <p>TODO: add damage by category bar chart</p>
+          <div id="damage-chart" class="chart-container"></div>
         </div>
         <div class="chart">
           <span class="chart-title">Avg Acres by Land Use</span>
           <hr />
-          <p>TODO: add avg acres by land use donut chart</p>
+          <div id="acres-chart" class="chart-container"></div>
         </div>
       </div>
     </div>
@@ -69,7 +71,11 @@ function main() {
   initTimeLabel();
   initPlayPauseButton();
   initCounterLabel();
+  initDamageChart();
+  initAcresChart();
 
+  // TODO: add data stats queries and charts update
+  
   // connect to the mapd backend
   getConnection(serverInfo)
     .then(connection => {
