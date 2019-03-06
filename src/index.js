@@ -13,6 +13,7 @@ import { initMap } from './components/map';
 import { initTimeSlider } from './components/time-slider';
 import { initTimeLabel } from './components/time-label';
 import { initPlayPauseButton } from './components/play-pause-button';
+import { initCounterLabel, updateCounterLabel } from './components/counter-label';
 
 // main app bootstrapping on content loaded
 document.addEventListener('DOMContentLoaded', main);
@@ -31,6 +32,9 @@ function main() {
       <label class="time-label"></label>
     </div>
     <div id="map"></div>
+    <div class="counter-box">
+      <label class="counter-label"></label>
+    </div>
     <div class='legend-box'>
       <div class='legend-title'>Buildings:</div>
       <div class='legend-scale'>
@@ -50,6 +54,7 @@ function main() {
   initTimeSlider();
   initTimeLabel();
   initPlayPauseButton();
+  initCounterLabel();
 
   // connect to the mapd backend
   getConnection(serverInfo)
