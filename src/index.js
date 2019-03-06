@@ -26,14 +26,28 @@ function main() {
         <h2 class="title">Paradise, CA 2018 Campfire</h2>
       </div>
     </div>
+    <div class="counter-box">
+      <label class="counter-label"></label>
+    </div>
     <div class="time-controls">
       <input class="time-slider" type="range" min="0" max="18" step="1" value="0" />
       <button class="play-pause-button">&#9654;</button><!-- play -->
       <label class="time-label"></label>
     </div>
-    <div id="map"></div>
-    <div class="counter-box">
-      <label class="counter-label"></label>
+    <div id="content">
+      <div id="map"></div>
+      <div id="side-panel">
+        <div class="chart">
+          <span class="chart-title">Damaged Buildings</span>
+          <hr />
+          <p>TODO: add damage by category bar chart</p>
+        </div>
+        <div class="chart">
+          <span class="chart-title">Avg Acres by Land Use</span>
+          <hr />
+          <p>TODO: add avg acres by land use donut chart</p>
+        </div>
+      </div>
     </div>
     <div class='legend-box'>
       <div class='legend-title'>Buildings:</div>
