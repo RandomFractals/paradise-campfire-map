@@ -18,11 +18,13 @@ body {
   width: 100%;
 }
 
+/* header styles */
 .header {
-  height: 80px;
+  height: 60px;
   font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
   display: flex;
   padding: 0px;
+  padding-right: 260px;
 }
 
 .logo {
@@ -40,6 +42,7 @@ body {
 
 .title {
   width: 100%;
+  font-size: 18pt;
 }
 
 /* time-controls styles */
@@ -69,7 +72,7 @@ body {
 .counter-box {
   width: 230px;
   position: absolute;
-  top: 20px;
+  top: 5px;
   right: 20px;
   text-align: left;
 }
