@@ -47,17 +47,6 @@ function saveConnection(connection) {
 async function getData(query) {
   console.log('mapd-connector:getData(): query:', query);
   return await savedConnection.queryAsync(query);
-  /*
-  return await new Promise((resolve, reject) => {
-    savedConnection.queryAsync(query, function(error, result) {
-      if (error) {
-        reject(error.message);
-      } else {
-        console.log('mapd-connector:getData(): exe:', result);
-        resolve(result);
-      }
-    })
-  });*/
 }
 
 async function renderVega (vegaSpec, vegaOptions = {returnTiming: true}) {
