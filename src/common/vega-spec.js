@@ -1,5 +1,5 @@
 import { updateMap } from "../components/map";
-import { renderVega } from "./mapd-connector";
+import { getData, renderVega } from "./mapd-connector";
 import { conv4326To900913 } from "./map-utils";
 
 export const createVegaSpec = ({map, endDateString}) => {
@@ -12,7 +12,7 @@ export const createVegaSpec = ({map, endDateString}) => {
   const {_ne, _sw} = map.getBounds();
   const [xMax, yMax] = conv4326To900913([_ne.lng, _ne.lat]);
   const [xMin, yMin] = conv4326To900913([_sw.lng, _sw.lat]);
-  console.log('vega-spec:createVega(): x/y mapBounds:', [mapWidth, mapHeight], [xMin, xMax, yMin, yMax]);
+  // console.log('vega-spec:createVega(): x/y mapBounds:', [mapWidth, mapHeight], [xMin, xMax, yMin, yMax]);
   console.log('vega-spec:createVega(): NE/SW mapBounds:', _ne, _sw);
   console.log('vega-spec:createVega(): endDate:', endDateString);
 
@@ -116,7 +116,26 @@ export const createVegaSpec = ({map, endDateString}) => {
   return vegaSpec;
 };
 
+export const getDamageDataQuery = ({map, endDateString}) => {
+  const {_ne, _sw} = map.getBounds();
+  return `SELECT ca_camp_fire_structure_damage_assessment.DAMAGE as key0, COUNT(*) AS val 
+    FROM ca_camp_fire_structure_damage_assessment 
+    WHERE ((ST_X(omnisci_geo) >= ${_sw.lng} AND ST_X(omnisci_geo) <= ${_ne.lng}) 
+          AND (ST_Y(omnisci_geo) >= ${_sw.lat} AND ST_Y(omnisci_geo) <= ${_ne.lat}))
+    GROUP BY key0 ORDER BY val DESC NULLS LAST LIMIT 100 `;
+}
+
 export function updateVega(map, endDateString = "2018-11-26 00:00:00") {
+  // get data stats
+  getData(getDamageDataQuery({map, endDateString}))
+    .then(result => {
+      console.log('vega-spec:updateVega(): damage-data:', result);
+    })
+    .catch(error => {
+      throw error;
+    });
+
+  // get vega tiles for the map
   const vegaSpec = createVegaSpec({map, endDateString});
   renderVega(vegaSpec)
     .then(result => {
@@ -125,4 +144,4 @@ export function updateVega(map, endDateString = "2018-11-26 00:00:00") {
     .catch(error => {
       throw error;
     });
-}
+};
