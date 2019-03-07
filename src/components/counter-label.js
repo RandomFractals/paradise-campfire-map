@@ -5,8 +5,9 @@ export function initCounterLabel() {
   counterLabel.innerHTML = '18,804';
 }
 
-export function updateCounterLabel(count) {
+export function updateCounterLabel(count, color) {
   counterLabel.innerHTML = Number(count).toLocaleString();
+  counterLabel.style.color = color;
 }
 
 export default counterLabel;
