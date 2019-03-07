@@ -40,7 +40,7 @@ function main() {
       <div id="map"></div>
       <div id="side-panel">
         <div class="chart">
-          <span class="chart-title">Damaged Buildings</span>
+          <span class="chart-title">Structural Damage</span>
           <hr />
           <div id="damage-chart" class="chart-container"></div>
         </div>
@@ -52,13 +52,13 @@ function main() {
       </div>
     </div>
     <div class='legend-box'>
-      <div class='legend-title'>Buildings:</div>
+      <div class='legend-title'>Structural Damage</div>
       <div class='legend-scale'>
         <ul class='legend-labels'>
-          <li><span style='background: rgba(234,85,69,1);'></span>Destroyed (>50%)</li>
-          <li><span style='background: rgba(189,207,50,1);'></span>Affected (1-9%)</li>
-          <li><span style='background: rgba(179,61,198,1);'></span>Minor (10-25%)</li>
-          <li><span style='background: rgba(239,155,32,1);'></span>Major (26-50%)</li>
+          <li><span style='background: rgba(234,85,69,1);'></span>&gt;50%</li>
+          <li><span style='background: rgba(239,155,32,1);'></span>26-50%</li>
+          <li><span style='background: rgba(179,61,198,1);'></span>10-25%</li>          
+          <li><span style='background: rgba(189,207,50,1);'></span>1-9%</li>
           <li><span style='background: rgba(39,174,239,1);'></span>Other</li>
         </ul>
       </div>
