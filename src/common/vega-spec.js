@@ -2,6 +2,7 @@ import { getData, renderVega } from "./mapd-connector";
 import { conv4326To900913 } from "./map-utils";
 import { updateMap } from "../components/map";
 import { updateCounterLabel } from '../components/counter-label';
+import { updateDamageChart } from '../components/damage-chart';
 import { getColor } from './damage-color-palette';
 
 export const createVegaSpec = ({map, endDateString}) => {
@@ -131,9 +132,9 @@ export function updateVega(map, endDateString = "2018-11-26 00:00:00") {
   // get data stats
   getData(getDamageDataQuery({map, endDateString}))
     .then(result => {
-      console.log('vega-spec:updateVega(): damage-data:', result);
       // NOTE: damage results are sorted by count values (see query above :)
       updateCounterLabel(result[0].val, getColor(result[0].key0));
+      updateDamageChart(result);
     })
     .catch(error => {
       throw error;
