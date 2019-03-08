@@ -21,8 +21,9 @@ export function updateDamageChart(damageData) {
       "values": chartData
     },
     "encoding": {
+      "x": {"field": "count", "type": "quantitative"},
       "y": {"field": "damage", "type": "ordinal"},
-      "x": {"field": "count", "type": "quantitative"}
+      "color": {"field": "color", "type": "nominal", "scale": null}
     },
     "layer": [{
       "mark": "bar"
