@@ -54,6 +54,7 @@ function main() {
     </div>
     <div class='legend-box'>
       <div class='legend-title'>Structural Damage</div>
+      <hr />
       <div class='legend-scale'>
         <ul class='legend-labels'>
           <li><span style='background: ${getColor('Destroyed (>50%)')};'></span>&gt;50%</li>
