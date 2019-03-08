@@ -45,17 +45,6 @@ function main() {
           <div id="damage-chart" class="chart-container"></div>
         </div>
       </div>
-    </div>
-    <div class='legend-box'>
-      <div class='legend-scale'>
-        <ul class='legend-labels'>
-          <li><span style='background: ${getColor('Destroyed (>50%)')};'></span>&gt;50%</li>
-          <li><span style='background: ${getColor('Major (26-50%)')};'></span>26-50%</li>
-          <li><span style='background: ${getColor('Minor (10-25%)')};'></span>10-25%</li>          
-          <li><span style='background: ${getColor('Affected (1-9%)')};'></span>1-9%</li>
-          <li><span style='background: ${getColor('Other')};'></span>Other</li>
-        </ul>
-      </div>
     </div>`;
 
   // initialize app controls
