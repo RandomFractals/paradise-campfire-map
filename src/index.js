@@ -15,7 +15,6 @@ import { initTimeLabel } from './components/time-label';
 import { initPlayPauseButton } from './components/play-pause-button';
 import { initCounterLabel } from './components/counter-label';
 import { initDamageChart } from './components/damage-chart';
-import { initAcresChart } from './components/acres-chart';
 import { getColor } from './common/damage-color-palette';
 
 // main app bootstrapping on content loaded
@@ -45,16 +44,9 @@ function main() {
           <hr />
           <div id="damage-chart" class="chart-container"></div>
         </div>
-        <div class="chart">
-          <span class="chart-title">Avg Acres by Land Use</span>
-          <hr />
-          <div id="acres-chart" class="chart-container"></div>
-        </div>
       </div>
     </div>
     <div class='legend-box'>
-      <div class='legend-title'>Structural Damage</div>
-      <hr />
       <div class='legend-scale'>
         <ul class='legend-labels'>
           <li><span style='background: ${getColor('Destroyed (>50%)')};'></span>&gt;50%</li>
@@ -64,7 +56,6 @@ function main() {
           <li><span style='background: ${getColor('Other')};'></span>Other</li>
         </ul>
       </div>
-      <div class='legend-source'>Source: <a href="#link to source">Name of source</a></div>
     </div>`;
 
   // initialize app controls
@@ -74,7 +65,6 @@ function main() {
   initPlayPauseButton();
   initCounterLabel();
   initDamageChart();
-  initAcresChart();
 
   // TODO: add data stats queries and charts update
   
