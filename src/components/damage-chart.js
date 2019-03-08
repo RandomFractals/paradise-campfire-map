@@ -21,9 +21,25 @@ export function updateDamageChart(damageData) {
       "values": chartData
     },
     "encoding": {
-      "x": {"field": "count", "type": "quantitative"},
-      "y": {"field": "damage", "type": "ordinal"},
-      "color": {"field": "color", "type": "nominal", "scale": null}
+      "x": {
+        "field": "count", 
+        "type": "quantitative",
+        "axis": {
+          "title": "Buildings"
+        }
+      },
+      "y": {
+        "field": "damage", 
+        "type": "ordinal",
+        "axis": {
+          "title": "Damage %"
+        }
+      },
+      "color": {
+        "field": "color", 
+        "type": "nominal", 
+        "scale": null
+      }
     },
     "layer": [{
       "mark": "bar"
@@ -35,7 +51,10 @@ export function updateDamageChart(damageData) {
         "dx": 3
       },
       "encoding": {
-        "text": {"field": "count", "type": "quantitative"}
+        "text": {
+          "field": "count", 
+          "type": "quantitative"
+        }
       }
     }]
   };
