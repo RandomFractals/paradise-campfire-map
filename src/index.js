@@ -13,9 +13,9 @@ import { initMap } from './components/map';
 import { initTimeSlider } from './components/time-slider';
 import { initTimeLabel } from './components/time-label';
 import { initPlayPauseButton } from './components/play-pause-button';
-import { initCounterLabel, updateCounterLabel } from './components/counter-label';
-import { initDamageChart, updateDamageChart } from './components/damage-chart';
-import { initAcresChart, updateAcresChart } from './components/acres-chart';
+import { initCounterLabel } from './components/counter-label';
+import { initDamageChart } from './components/damage-chart';
+import { initAcresChart } from './components/acres-chart';
 import { getColor } from './common/damage-color-palette';
 
 // main app bootstrapping on content loaded
