@@ -17,6 +17,9 @@ export function updateDamageChart(damageData) {
   // damage bar chart vega spec
   const vegaSpec = {
     "$schema": "https://vega.github.io/schema/vega-lite/v3.json",
+    "width": 200,
+    "height": 210,
+    "padding": 5,
     "data": {
       "values": chartData
     },
@@ -25,14 +28,14 @@ export function updateDamageChart(damageData) {
         "field": "count", 
         "type": "quantitative",
         "axis": {
-          "title": "Buildings"
+          "title": ""
         }
       },
       "y": {
         "field": "damage", 
         "type": "ordinal",
         "axis": {
-          "title": "Damage %"
+          "title": ""
         }
       },
       "color": {
