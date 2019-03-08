@@ -18,6 +18,6 @@ export function getColor(damageCategory) {
   return colorPalette[damageCategory];
 }
 
-export function getLabel(datamageCategory) {
+export function getLabel(damageCategory) {
   return labels[damageCategory];
 }

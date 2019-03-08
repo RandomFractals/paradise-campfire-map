@@ -1,5 +1,5 @@
 import {default as vegaEmbed } from 'vega-embed';
-import { getLabel } from '../common/damage-color-palette';
+import { getLabel, getColor } from '../common/damage-color-palette';
 
 let damageChart = null;
 
@@ -10,16 +10,19 @@ export function initDamageChart() {
 
 export function updateDamageChart(damageData) {
   console.log('damage-chart:updateDamageChart(): damage-data:', damageData);
-  const sortedDamageData = damageData.sort((a, b) => b.val - a.val);
+  const chartData = damageData.sort((a, b) => b.val - a.val)
+    .map(damage => {
+      return {damage: getLabel(damage.key0), color: getColor(damage.key0), count: damage.val};
+    });
   // damage bar chart vega spec
   const vegaSpec = {
     "$schema": "https://vega.github.io/schema/vega-lite/v3.json",
     "data": {
-      "values": sortedDamageData
+      "values": chartData
     },
     "encoding": {
-      "y": {"field": "key0", "type": "ordinal"},
-      "x": {"field": "val", "type": "quantitative"}
+      "y": {"field": "damage", "type": "ordinal"},
+      "x": {"field": "count", "type": "quantitative"}
     },
     "layer": [{
       "mark": "bar"
@@ -31,7 +34,7 @@ export function updateDamageChart(damageData) {
         "dx": 3
       },
       "encoding": {
-        "text": {"field": "val", "type": "quantitative"}
+        "text": {"field": "count", "type": "quantitative"}
       }
     }]
   };
