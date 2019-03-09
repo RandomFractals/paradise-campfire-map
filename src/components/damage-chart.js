@@ -18,7 +18,7 @@ export function updateDamageChart(damageData) {
   const vegaSpec = {
     "$schema": "https://vega.github.io/schema/vega-lite/v3.json",
     "width": 140,
-    "height": 140,
+    "height": 100,
     "padding": 5,
     "data": {
       "values": chartData
