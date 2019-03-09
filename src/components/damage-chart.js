@@ -5,7 +5,6 @@ let damageChart = null;
 
 export function initDamageChart() {
   damageChart = document.querySelector('#damage-chart');
-  damageChart.innerHTML = '<p>damage by category bar chart</p>';
 };
 
 export function updateDamageChart(damageData) {
@@ -17,8 +16,8 @@ export function updateDamageChart(damageData) {
   // damage bar chart vega spec
   const vegaSpec = {
     "$schema": "https://vega.github.io/schema/vega-lite/v3.json",
-    "width": 140,
-    "height": 100,
+    "width": 160,
+    "height": 70,
     "padding": 5,
     "data": {
       "values": chartData
