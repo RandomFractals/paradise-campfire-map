@@ -31,9 +31,9 @@
     "d3-timer": "^1.0.9",
     "lodash.throttle": "^4.1.1",
     "mapbox-gl": "https://github.com/omnisci/mapbox-gl-js/tarball/9c04de6949fe498c8c79f5c0627dfd6d6321f307",
-    "vega": "^4.4.0",
+    "vega": "^5.2.0",
     "vega-lite": "^3.0.0-rc14",
-    "vega-embed": "^3.29.1"
+    "vega-embed": "^4.0.0-rc1"
   },
   "devDependencies": {
     "@babel/core": "^7.3.4",
