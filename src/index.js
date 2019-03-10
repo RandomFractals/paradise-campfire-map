@@ -15,7 +15,6 @@ import { initTimeLabel } from './components/time-label';
 import { initPlayPauseButton } from './components/play-pause-button';
 import { initCounterLabel } from './components/counter-label';
 import { initDamageChart } from './components/damage-chart';
-import { getColor } from './common/damage-color-palette';
 
 // main app bootstrapping on content loaded
 document.addEventListener('DOMContentLoaded', main);
@@ -34,8 +33,6 @@ function main() {
       <label class="time-label"></label>
     </div>
     <div class="time-ticks">
-      <p>8</p><p>9</p><p>10</p><p>11</p><p>12</p><p>13</p><p>14</p><p>15</p><p>16</p>
-      <p>17</p><p>18</p><p>19</p><p>20</p><p>21</p><p>22</p><p>23</p><p>24</p><p>25</p><p>26</p>
     </div>
     <div class="time-controls">
       <input class="time-slider" type="range" min="0" max="18" step="1" value="0" />
