@@ -20,7 +20,7 @@ body {
   font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
   display: flex;
   padding: 0px;
-  padding-right: 260px;
+  margin-right: 260px;
 }
 
 .logo {
@@ -43,7 +43,7 @@ body {
 
 /* counter-box styles */
 .counter-box {
-  width: 230px;
+  width: 240px;
   position: absolute;
   top: 5px;
   right: 20px;
@@ -51,9 +51,14 @@ body {
 }
 
 .counter-label {
-  font-size: 32pt;
+  font-size: 38pt;
   font-weight: bold;
   color: rgba(234,85,69,1);
+}
+
+.time-label {
+  margin-top: 5px;
+  font-size: 13pt;
 }
 
 /* time-controls styles */
@@ -62,7 +67,8 @@ body {
   align-items: flex-start;
   vertical-align: middle;
   padding-left: 20px;
-  padding-bottom: 10px;
+  margin-right: 260px;
+  margin-bottom: 25px;
 }
 
 .time-slider {
@@ -80,10 +86,26 @@ body {
   cursor: pointer;
 }
 
-.time-label {
-  margin-top: 5px;
-  width: 360px;
-  font-size: 13pt;
+.time-ticks {
+  position: absolute;
+  top: 80px;
+  left: 33px;
+  width: calc(100% - 357px);
+  display: flex;
+  justify-content: space-between;
+}
+
+.time-ticks p {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  width: 1px;
+  background: #D3D3D3;
+  height: 5px;
+  line-height: 30px;
+  margin: 0 0 20px 0;
+  font-size: 8pt;
 }
 
 /* content styles */
