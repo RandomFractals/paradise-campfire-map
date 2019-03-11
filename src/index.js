@@ -42,8 +42,12 @@ function main() {
       <div id="map"></div>
       <div id="side-panel">
         <div class="chart">
-          <span class="chart-title">Structural Damage</span>
-          <hr />
+          <div class="chart-title-bar">
+            <span class="chart-title">Structural Damage</span>
+            <div class="chart-actions">
+              <a class="chart-action-link" href="#showAll" onClick="showAll" title="Show All">Show All</a>
+            </div>
+          <div>
           <div id="damage-chart" class="chart-container"></div>
         </div>
       </div>

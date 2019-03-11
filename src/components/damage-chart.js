@@ -15,9 +15,9 @@ export function updateDamageChart(damageData) {
   
   // damage bar chart vega spec
   const vegaSpec = {
-    "width": 160,
-    "height": 70,
-    "padding": 5,
+    "width": 180,
+    "height": 120,
+    "padding": 10,
     "data": {
       "values": chartData
     },
@@ -28,7 +28,8 @@ export function updateDamageChart(damageData) {
         "axis": {
           "title": "",
           "tickCount": 3,
-          "format": ",d"
+          "format": ",d",
+          "grid": false
         }
       },
       "y": {
