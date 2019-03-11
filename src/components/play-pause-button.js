@@ -7,6 +7,20 @@ let timerInstance = null;
 let isPlaying = false;
 let sliderValue = 0;
 
+export function initPlayPauseButton () {
+  playPauseButton = document.querySelector('button.play-pause-button');
+  playPauseButton.addEventListener('click', onClick);
+}
+
+function onClick (event) {
+  event.preventDefault();
+  if (isPlaying) {
+    stop();
+  } else {
+    play();
+  }
+}
+
 function stop () {
   isPlaying = false;
   timerInstance.stop();
@@ -32,18 +46,4 @@ function play () {
       updateSliderPosition(sliderValue);
     }
   }, 1000); // every second
-}
-
-function onClick (event) {
-  event.preventDefault();
-  if (isPlaying) {
-    stop();
-  } else {
-    play();
-  }
-}
-
-export function initPlayPauseButton () {
-  playPauseButton = document.querySelector('button.play-pause-button');
-  playPauseButton.addEventListener('click', onClick);
 }
