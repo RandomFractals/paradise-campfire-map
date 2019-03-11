@@ -1,11 +1,14 @@
-import { debounce, dispatcher } from '../common/dispatcher';
+import { dispatcher } from '../common/dispatcher';
 import { mapboxAccessToken, mapboxConfig } from '../common/config'
 
 let map = null;
 mapboxgl.accessToken = mapboxAccessToken;
 
 export const initMap = () => {
+  // create mapbox map
   map = new mapboxgl.Map(mapboxConfig);
+
+  // add basic nav controls
   map.addControl(new mapboxgl.NavigationControl());
 
   // add map move event handler
@@ -13,7 +16,6 @@ export const initMap = () => {
     dispatcher.call('mapMove', null);
   }
   map.on('move', debounce(update, 100));
-
   return map;
 }
 
@@ -74,4 +76,24 @@ export const updateMap = (vegaImage) => {
       coordinates: imageBounds
     });
   }
+};
+
+// debounce for map tiles update: map.on('move', debounce(update, 100)); // see up! :)
+function debounce(funct, wait, immediate) {
+  let timeout;
+  return function() {
+    const context = this, args = arguments;
+    const later = () => {
+      timeout = null;
+      if (!immediate) {
+        funct.apply(context, args);
+      }
+    };
+    const callNow = immediate && !timeout;
+    clearTimeout(timeout);
+    timeout = setTimeout(later, wait);
+    if (callNow) {
+      funct.apply(context, args);
+    }
+  };
 };
