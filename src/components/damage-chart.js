@@ -28,7 +28,7 @@ export function updateDamageChart(damageData) {
         "axis": {
           "title": "",
           "tickCount": 3,
-          "format": ",f"
+          "format": ",d"
         }
       },
       "y": {
