@@ -26,7 +26,9 @@ export function updateDamageChart(damageData) {
         "field": "count", 
         "type": "quantitative",
         "axis": {
-          "title": ""
+          "title": "",
+          "tickCount": 3,
+          "format": ",f"
         }
       },
       "y": {
