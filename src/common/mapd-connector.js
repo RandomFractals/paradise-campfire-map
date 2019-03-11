@@ -1,6 +1,6 @@
 import MapDCon from '@mapd/connector/dist/browser-connector';
 
-// mapd back-end connection setup
+// create mapd connector instance to establish data connection 
 const connector = new window.MapdCon();
 let connection = null;
 

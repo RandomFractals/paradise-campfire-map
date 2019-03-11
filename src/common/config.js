@@ -1,6 +1,14 @@
-// map data replay start and end date
+// map data over time playback start/end date
 export const startDate = new Date('2018-11-08');
 export const endDate = new Date('2018-11-26');
+
+// time slider minor/hours ticks/steps per day 
+// Note: hours period ticks are not displayed on below the time slider 
+// to keep those ticks display UI clean.
+// Only day ticks are displayed on the time slider, 
+// but users can scrub them with arrow keys and slider mouse clicks
+// for hourly thumb updates and date filter queries
+export const ticksPerDay = 4; // every 6 hours
 
 // access token for MapboxGLJS
 // https://www.mapbox.com/mapbox-gl-js/api/

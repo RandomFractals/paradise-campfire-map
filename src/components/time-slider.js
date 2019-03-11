@@ -1,12 +1,7 @@
 import throttle from 'lodash.throttle';
 import { dispatcher } from '../common/dispatcher';
-import {
-  dayCount,
-  timeFormatter,
-  timeScale,
-  ticksPerDay
-} from '../common/time-utils';
-import { startDate } from '../common/config';
+import { dayCount, timeFormatter, timeScale } from '../common/time-utils';
+import { startDate, ticksPerDay } from '../common/config';
 
 let slider = null;
 let sliderTicks = null;

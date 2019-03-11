@@ -1,6 +1,7 @@
 import { interval } from 'd3-timer';
+import { dayCount } from '../common/time-utils';
+import { ticksPerDay } from '../common/config';
 import { updateSliderPosition, getValue } from './time-slider';
-import { dayCount, ticksPerDay } from '../common/time-utils';
 
 let playPauseButton = null;
 let timerInstance = null;
