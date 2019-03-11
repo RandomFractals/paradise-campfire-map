@@ -24,7 +24,7 @@ function onClick (event) {
 function stop () {
   isPlaying = false;
   timerInstance.stop();
-  playPauseButton.innerHTML = '&#9654;'; // play
+  playPauseButton.innerHTML = '▶️'; // play
 }
 
 function play () {
@@ -32,7 +32,7 @@ function play () {
     timerInstance = null;
   }
   isPlaying = true;
-  playPauseButton.innerHTML = '&#9208;'; // pause
+  playPauseButton.innerHTML = '||'; // pause
   sliderValue = getValue();
   timerInstance = interval(elapsed => {
     console.log('play-pause-control:time-elapsed:', elapsed);

@@ -52,7 +52,7 @@ body {
 }
 
 .counter-label {
-  font-size: 38pt;
+  font-size: 36pt;
   font-weight: bold;
   color: rgba(234,85,69,1);
 }
@@ -67,7 +67,7 @@ body {
   align-items: flex-start;
   vertical-align: middle;
   padding-left: 20px;
-  margin-right: 260px;
+  margin-right: 264px;
   margin-bottom: 25px;
 }
 
@@ -78,13 +78,14 @@ body {
 
 .play-pause-button {
   margin-right: 15px;
-  width: 36px;
-  height: 28px;
+  width: 32px;
+  height: 30px;
   border: 1px solid #ccc;
   border-radius: 3px;
   background: #ffffff;
   cursor: pointer;
   font-size: 12pt;
+  font-weight: bolder;
 }
 
 .time-ticks {
