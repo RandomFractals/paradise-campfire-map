@@ -42,6 +42,11 @@ async function getConnectionStatus(connection) {
 // store the connection once we've established it
 function saveConnection(connection) {
   savedConnection = connection;
+  logTables();
+}
+
+async function logTables() {
+  console.log('mapd-connector:tables:', await savedConnection.getTablesAsync());
 }
 
 async function getData(query) {
