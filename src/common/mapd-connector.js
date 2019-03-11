@@ -50,7 +50,7 @@ async function logTables() {
 }
 
 async function getData(query) {
-  // console.log('mapd-connector:getData(): query:', query);
+  // console.log('mapd-connector:getData: query:', query);
   return await savedConnection.queryAsync(query);
 }
 
@@ -60,7 +60,7 @@ async function renderVega (vegaSpec, vegaOptions = {returnTiming: true}) {
       if (error) {
         reject(error.message);
       } else {
-        console.log('mapd-connector:renderVega(): exe:', result.execution_time_ms,
+        console.log('mapd-connector:renderVega: exe:', result.execution_time_ms,
           'render:', result.render_time_ms, 'total:', result.total_time_ms, '(ms)');
         const blobUrl = `data:image/png;base64,${result.image}`;
         resolve(blobUrl);

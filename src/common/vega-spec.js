@@ -15,9 +15,9 @@ export const createVegaSpec = ({map, endDateString}) => {
   const {_ne, _sw} = map.getBounds();
   const [xMax, yMax] = conv4326To900913([_ne.lng, _ne.lat]);
   const [xMin, yMin] = conv4326To900913([_sw.lng, _sw.lat]);
-  // console.log('vega-spec:createVega(): x/y mapBounds:', [mapWidth, mapHeight], [xMin, xMax, yMin, yMax]);
-  console.log('vega-spec:createVega(): NE/SW mapBounds:', _ne, _sw);
-  console.log('vega-spec:createVega(): endDate:', endDateString);
+  // console.log('vega-spec:mapBounds: (x/y)', [mapWidth, mapHeight], [xMin, xMax, yMin, yMax]);
+  console.log('vega-spec:mapBounds: (NE/SW)', _ne, _sw);
+  console.log('vega-spec:endDate:', endDateString);
 
   // TODO: plug in date param in query (per day or hr???)
   const vegaSpec = {
