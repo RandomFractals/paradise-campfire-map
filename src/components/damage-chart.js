@@ -15,7 +15,6 @@ export function updateDamageChart(damageData) {
   
   // damage bar chart vega spec
   const vegaSpec = {
-    "$schema": "https://vega.github.io/schema/vega-lite/v3.json",
     "width": 160,
     "height": 70,
     "padding": 5,
@@ -61,7 +60,8 @@ export function updateDamageChart(damageData) {
     }]
   };
 
-  vegaEmbed('#damage-chart', vegaSpec);
+  // render vega chart
+  vegaEmbed('#damage-chart', vegaSpec, {mode: 'vega-lite'});
 };
 
 export default damageChart;
