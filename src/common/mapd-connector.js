@@ -2,9 +2,9 @@ import MapDCon from '@mapd/connector/dist/browser-connector';
 
 // mapd back-end connection setup
 const connector = new window.MapdCon();
-let savedConnection = null;
+let connection = null;
 
-function establishConnection(config) {
+function connect(config) {
   return new Promise((resolve, reject) => {
     connector
       .host(config.host)
@@ -25,7 +25,7 @@ function establishConnection(config) {
 
 async function getConnection(config) {
   try {
-    return await establishConnection(config);
+    return await connect(config);
   } catch(error) {
     return error;
   }
@@ -39,24 +39,31 @@ async function getConnectionStatus(connection) {
   }
 }
 
-// store the connection once we've established it
-function saveConnection(connection) {
-  savedConnection = connection;
+function saveConnection(mapdConnection) {
+  connection = mapdConnection;
   logTables();
 }
 
 async function logTables() {
-  console.log('mapd-connector:tables:', await savedConnection.getTablesAsync());
+  const tables = await connection.getTablesAsync();
+  console.log('mapd-connector:tables:', tables);
+  // TODO: comment this out for prod/demo deploy
+  tables.map(table => logFields(table.name));
+}
+
+async function logFields(tableName) {
+  const tableFields = await connection.getFieldsAsync(tableName);  
+  console.log(`mapd-connector:fields: (${tableName})`, tableFields);
 }
 
 async function getData(query) {
   // console.log('mapd-connector:getData: query:', query);
-  return await savedConnection.queryAsync(query);
+  return await connection.queryAsync(query);
 }
 
 async function renderVega (vegaSpec, vegaOptions = {returnTiming: true}) {
   return await new Promise((resolve, reject) => {
-    savedConnection.renderVega(1, JSON.stringify(vegaSpec), vegaOptions, function(error, result) {
+    connection.renderVega(1, JSON.stringify(vegaSpec), vegaOptions, function(error, result) {
       if (error) {
         reject(error.message);
       } else {
