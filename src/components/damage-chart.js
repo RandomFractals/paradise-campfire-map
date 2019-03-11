@@ -8,7 +8,7 @@ export function initDamageChart() {
 };
 
 export function updateDamageChart(damageData) {
-  console.log('damage-chart:updateDamageChart(): damage-data:', damageData);
+  // console.log('damage-chart:updateDamageChart(): damage-data:', damageData);
   const chartData = damageData.map(damage => {
       return {damage: getLabel(damage.key0), color: getColor(damage.key0), count: damage.val};
     });

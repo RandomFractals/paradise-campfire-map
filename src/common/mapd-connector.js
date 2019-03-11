@@ -45,7 +45,7 @@ function saveConnection(connection) {
 }
 
 async function getData(query) {
-  console.log('mapd-connector:getData(): query:', query);
+  // console.log('mapd-connector:getData(): query:', query);
   return await savedConnection.queryAsync(query);
 }
 
