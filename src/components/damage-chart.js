@@ -56,7 +56,8 @@ export function updateDamageChart(damageData) {
       "encoding": {
         "text": {
           "field": "count", 
-          "type": "quantitative"
+          "type": "quantitative",
+          "format": ",d"
         }
       }
     }]
