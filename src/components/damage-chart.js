@@ -42,6 +42,11 @@ export function updateDamageChart(damageData) {
         "field": "color", 
         "type": "nominal", 
         "scale": null
+      },
+      "tooltip": {
+        "field": "count", 
+        "type": "quantitative",
+        "format": ",d"
       }
     },
     "layer": [{
