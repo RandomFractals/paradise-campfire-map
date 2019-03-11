@@ -6,6 +6,7 @@ body {
   margin: 0px;
   padding: 0px;
   overflow-y: hidden;
+  font-family: Arial;  
 }
 
 #app {
@@ -45,7 +46,7 @@ body {
 .counter-box {
   width: 240px;
   position: absolute;
-  top: 5px;
+  top: 10px;
   right: 20px;
   text-align: left;
 }
@@ -57,8 +58,7 @@ body {
 }
 
 .time-label {
-  margin-top: 5px;
-  font-size: 13pt;
+  font-size: 11pt;
 }
 
 /* time-controls styles */
@@ -84,6 +84,7 @@ body {
   border-radius: 3px;
   background: #ffffff;
   cursor: pointer;
+  font-size: 12pt;
 }
 
 .time-ticks {
