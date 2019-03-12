@@ -5,7 +5,7 @@ import { updateCounterLabel } from '../components/counter-label';
 import { updateDamageChart } from '../components/damage-chart';
 import { getColor } from './damage-color-palette';
 
-export const createVegaSpec = ({map, endDateString}) => {
+export const createVegaSpec = ({map, endDateString, damageFilter}) => {
   // get map size
   const mapContainer = map.getContainer();
   const mapWidth = mapContainer.clientWidth;
@@ -17,7 +17,7 @@ export const createVegaSpec = ({map, endDateString}) => {
   const [xMin, yMin] = conv4326To900913([_sw.lng, _sw.lat]);
   // console.log('vega-spec:mapBounds: (x/y)', [mapWidth, mapHeight], [xMin, xMax, yMin, yMax]);
   console.log('vega-spec:mapBounds: (NE/SW)', _ne, _sw);
-  console.log('vega-spec:endDate:', endDateString);
+  console.log('vega-spec:endDate:', endDateString, 'damageFilter:', damageFilter);
 
   // TODO: plug in date param in query (per day or hr???)
   const vegaSpec = {
@@ -128,7 +128,7 @@ export const getDamageDataQuery = ({map, endDateString}) => {
     GROUP BY key0 ORDER BY val DESC NULLS LAST LIMIT 100 `;
 }
 
-export function updateVega(map, endDateString = "2018-11-26 00:00:00") {
+export function updateVega(map, endDateString = "2018-11-26 00:00:00", damageFilter = "all") {
   // get data stats
   getData(getDamageDataQuery({map, endDateString}))
     .then(result => {
@@ -141,7 +141,7 @@ export function updateVega(map, endDateString = "2018-11-26 00:00:00") {
     });
 
   // get vega tiles for the map
-  const vegaSpec = createVegaSpec({map, endDateString});
+  const vegaSpec = createVegaSpec({map, endDateString, damageFilter});
   renderVega(vegaSpec)
     .then(result => {
       updateMap(result);

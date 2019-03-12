@@ -19,7 +19,7 @@ import { initDamageChart } from './components/damage-chart';
 // main app bootstrapping on content loaded
 document.addEventListener('DOMContentLoaded', main);
 function main() {
-  // render markup for our UI
+  // set webapp markup
   document.querySelector("#app").innerHTML = `
     <div class="header">
       <img class="logo" height="75px" width="75px" src="images/omni-sci-logo.png" />
@@ -45,14 +45,14 @@ function main() {
           <div class="chart-title-bar">
             <span class="chart-title">Structural Damage</span>
             <div class="chart-actions">
-              <a class="chart-action-link" href="#showAll" onClick="showAll" title="Show All">Show All</a>
+              <a id="show-all-link" class="chart-action-link" href="#" title="Show All">Show All</a>
             </div>
           <div>
           <div id="damage-chart" class="chart-container"></div>
         </div>
       </div>
     </div>`;
-
+  
   // initialize app controls
   const map = initMap();
   initTimeSlider();
@@ -60,8 +60,6 @@ function main() {
   initPlayPauseButton();
   initCounterLabel();
   initDamageChart();
-
-  // TODO: add data stats queries and charts update
   
   // connect to the mapd backend
   getConnection(serverInfo)

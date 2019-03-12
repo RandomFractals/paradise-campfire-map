@@ -1,11 +1,17 @@
 import {default as vegaEmbed } from 'vega-embed';
 import { getLabel, getColor } from '../common/damage-color-palette';
+import { dispatcher } from '../common/dispatcher';
 
 let damageChart = null;
-
 export function initDamageChart() {
   damageChart = document.querySelector('#damage-chart');
+  let showDamageLink = document.querySelector('#show-all-link');
+  showDamageLink.addEventListener('click', showDamage('all'));
 };
+
+function showDamage(damage) {
+  dispatcher.call('damageFilter', null, damage); // null = that/this context
+}
 
 export function updateDamageChart(damageData) {
   // console.log('damage-chart:updateDamageChart(): damage-data:', damageData);
