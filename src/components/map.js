@@ -41,6 +41,11 @@ export const clearMap = () => {
   map = null;
 }
 
+export const zoomOut = () => {
+  console.log('map:zoomOut: bounds:', mapboxConfig);
+  map.fitBounds(mapboxConfig.maxBounds);
+}
+
 export const setBounds = bounds => {
   map.fitBounds([bounds._sw, bounds._ne], {linear: true});
 }

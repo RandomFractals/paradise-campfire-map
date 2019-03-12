@@ -1,17 +1,26 @@
 import {default as vegaEmbed } from 'vega-embed';
 import { getLabel, getColor } from '../common/damage-color-palette';
+import { zoomOut } from '../components/map';
 import { dispatcher } from '../common/dispatcher';
 
 let damageChart = null;
 export function initDamageChart() {
   damageChart = document.querySelector('#damage-chart');
   let showAllDamageLink = document.querySelector('#show-all-damage-link');
-  showAllDamageLink.addEventListener('click', showDamage);
+  showAllDamageLink.addEventListener('click', onShowAllDamageLinkClick);
 };
 
-function showDamage(damage = "all") {
+function onShowAllDamageLinkClick (event) {
+  showDamage('all');
+}
+
+function showDamage(damage = 'all') {
   console.log('damage-chart:showDamage:', damage);
   dispatcher.call('damageFilter', null, damage); // null = that/this context
+  if (damage === 'all') {
+    // zoom out for full area damage display
+    zoomOut();
+  }
 }
 
 export function updateDamageChart(damageData) {
