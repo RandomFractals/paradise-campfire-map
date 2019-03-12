@@ -5,11 +5,12 @@ import { dispatcher } from '../common/dispatcher';
 let damageChart = null;
 export function initDamageChart() {
   damageChart = document.querySelector('#damage-chart');
-  let showDamageLink = document.querySelector('#show-all-link');
-  showDamageLink.addEventListener('click', showDamage('all'));
+  let showAllDamageLink = document.querySelector('#show-all-damage-link');
+  showAllDamageLink.addEventListener('click', showDamage);
 };
 
-function showDamage(damage) {
+function showDamage(damage = "all") {
+  console.log('damage-chart:showDamage:', damage);
   dispatcher.call('damageFilter', null, damage); // null = that/this context
 }
 

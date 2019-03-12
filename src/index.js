@@ -45,7 +45,7 @@ function main() {
           <div class="chart-title-bar">
             <span class="chart-title">Structural Damage</span>
             <div class="chart-actions">
-              <a id="show-all-link" class="chart-action-link" href="#" title="Show All">Show All</a>
+              <a id="show-all-damage-link" href="#" class="chart-action-link">Show All</a>
             </div>
           <div>
           <div id="damage-chart" class="chart-container"></div>

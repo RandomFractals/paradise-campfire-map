@@ -156,7 +156,7 @@ body {
   float: right;
 }
 
-.chart-action-link {
+a:link, a:visited, .chart-action-link {
   color: 39f;
   font-size: 10pt;
   text-decoration: none;
