@@ -47,8 +47,14 @@ function saveConnection(mapdConnection) {
 async function logTables() {
   const tables = await connection.getTablesAsync();
   console.log('mapd-connector:tables:', tables);
+  // log all tables fields
+  // tables.map(table => logFields(table.name));
   // TODO: comment this out for prod/demo deploy
-  tables.map(table => logFields(table.name));
+  // log fields only for the tables used by this app
+  logFields('fire_perim_camp');
+  logFields('ca_butte_county_parcels');
+  logFields('ca_butte_county_damaged_buildings_earliestdate');
+  logFields('ca_butte_county_damaged_points_earliestdate');
 }
 
 async function logFields(tableName) {
