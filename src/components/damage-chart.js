@@ -106,7 +106,7 @@ export function updateDamageChart(damageData) {
   // render vega damage chart
   vegaEmbed("#damage-chart", vegaSpec, { mode: "vega-lite" }).then(result => {
     // add damage bar selection handler
-    result.view.addSignalListener("barSelection", (name, value) => showDamage(value));
+    // result.view.addSignalListener("barSelection", (name, value) => showDamage(value));
   });
 }
 
