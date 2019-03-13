@@ -122,10 +122,14 @@ export const createVegaSpec = ({map, endDateString, damageFilter}) => {
 
 export const getDamageDataQuery = ({map, endDateString}) => {
   const {_ne, _sw} = map.getBounds();
-  return `SELECT ca_camp_fire_structure_damage_assessment.DAMAGE as key0, COUNT(*) AS val 
-    FROM ca_camp_fire_structure_damage_assessment 
-    WHERE ((ST_X(omnisci_geo) >= ${_sw.lng} AND ST_X(omnisci_geo) <= ${_ne.lng}) 
-          AND (ST_Y(omnisci_geo) >= ${_sw.lat} AND ST_Y(omnisci_geo) <= ${_ne.lat}))
+  return `SELECT ca_butte_county_damaged_points_earliestdate.DAMAGE as key0, COUNT(*) AS val 
+    FROM ca_butte_county_damaged_points_earliestdate 
+    WHERE (
+      (ST_X(omnisci_geo) >= ${_sw.lng} AND ST_X(omnisci_geo) <= ${_ne.lng}) 
+      AND 
+      (ST_Y(omnisci_geo) >= ${_sw.lat} AND ST_Y(omnisci_geo) <= ${_ne.lat})
+      )
+      AND perDatTime <= '${endDateString}'
     GROUP BY key0 ORDER BY val DESC NULLS LAST LIMIT 100 `;
 }
 
