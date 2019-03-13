@@ -1,6 +1,6 @@
 import { interval } from 'd3-timer';
 import { dayCount } from '../common/time-utils';
-import { ticksPerDay } from '../common/config';
+import { ticksPerDay, timerDelay } from '../common/config';
 import { updateSliderPosition, getValue } from './time-slider';
 
 let playPauseButton = null;
@@ -46,5 +46,5 @@ function play () {
       sliderValue = sliderValue + 1;
       updateSliderPosition(sliderValue);
     }
-  }, 1000); // every second
+  }, timerDelay);
 }

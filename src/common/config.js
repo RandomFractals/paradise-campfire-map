@@ -8,7 +8,10 @@ export const endDate = new Date('2018-11-26');
 // Only day ticks are displayed on the time slider, 
 // but users can scrub them with arrow keys and slider mouse clicks
 // for hourly thumb updates and date filter queries
-export const ticksPerDay = 4; // every 6 hours
+export const ticksPerDay = 24; // every hour
+
+// replay timer delay in msecs
+export const timerDelay = 500; 
 
 // access token for MapboxGLJS
 // https://www.mapbox.com/mapbox-gl-js/api/
