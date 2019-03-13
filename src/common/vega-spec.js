@@ -122,15 +122,32 @@ export const createVegaSpec = ({map, endDateString, damageFilter}) => {
 
 export const getDamageDataQuery = ({map, endDateString}) => {
   const {_ne, _sw} = map.getBounds();
-  return `SELECT ca_butte_county_damaged_points_earliestdate.DAMAGE as key0, COUNT(*) AS val 
+  return `with filler as(
+    select DAMAGE, 
+    sum(0) as nonecount
+    from ca_butte_county_damaged_points_earliestdate
+    group by 1
+  ),
+  damagequery as (
+    SELECT 
+    ca_butte_county_damaged_points_earliestdate.DAMAGE, 
+    COUNT(*) AS val 
     FROM ca_butte_county_damaged_points_earliestdate 
     WHERE (
-      (ST_X(omnisci_geo) >= ${_sw.lng} AND ST_X(omnisci_geo) <= ${_ne.lng}) 
-      AND 
-      (ST_Y(omnisci_geo) >= ${_sw.lat} AND ST_Y(omnisci_geo) <= ${_ne.lat})
-      )
-      AND perDatTime <= '${endDateString}'
-    GROUP BY key0 ORDER BY val DESC NULLS LAST LIMIT 100 `;
+        (ST_X(omnisci_geo) >= ${_sw.lng} AND ST_X(omnisci_geo) <= ${_ne.lng}) 
+        AND 
+        (ST_Y(omnisci_geo) >= ${_sw.lat} AND ST_Y(omnisci_geo) <= ${_ne.lat})
+  ) AND perDatTime <= '${endDateString}'
+    GROUP BY 1 
+    ORDER BY val DESC 
+    NULLS LAST 
+    LIMIT 100
+  )
+  select
+  filler.damage as key0,
+  filler.nonecount + coalesce(damagequery.val,0) as val
+  from filler
+  left join damagequery on filler.damage = damagequery.damage;`;
 }
 
 export function updateVega(map, endDateString = "2018-11-26 00:00:00", damageFilter = "all") {
