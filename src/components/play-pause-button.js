@@ -40,10 +40,12 @@ function play () {
     if (!isPlaying) {
       stop();
     } else if (sliderValue > (dayCount * ticksPerDay)) {
+      // loopback
       sliderValue = 0;
       updateSliderPosition(sliderValue);
     } else {
-      sliderValue = sliderValue + 1;
+      // play next hour :) 🎮
+      sliderValue = getValue() + 1;
       updateSliderPosition(sliderValue);
     }
   }, timerDelay);
