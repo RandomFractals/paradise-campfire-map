@@ -1,0 +1,266 @@
+html,
+body {
+  width: 100%;
+  height: 100%;
+  background: #fff;
+  margin: 0px;
+  padding: 0px;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  font-family: Arial;  
+}
+
+#app {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
+/* header styles */
+.header {
+  height: 60px;
+  font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+  display: flex;
+  padding: 0px;
+  margin-right: 260px;
+}
+
+.logo {
+  height: calc(100% - 10px);
+  width: auto;
+  display: block;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.title-bar {
+  height: 100%;
+  flex-grow: 2;
+}
+
+.title {
+  width: 100%;
+  font-size: 18pt;
+}
+
+/* counter-box styles */
+.counter-box {
+  width: 240px;
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  text-align: left;
+}
+
+.counter-label {
+  font-size: 36pt;
+  font-weight: bold;
+  color: rgba(234,85,69,1);
+}
+
+.time-label {
+  font-size: 11pt;
+}
+
+/* time-controls styles */
+.time-controls {
+  display: flex;
+  align-items: flex-start;
+  vertical-align: middle;
+  padding-left: 20px;
+  margin-right: 264px;
+  margin-bottom: 25px;
+}
+
+.time-slider {
+  width: 100%;
+  margin-right: 5px;
+}
+
+.play-pause-button {
+  margin-right: 15px;
+  width: 32px;
+  height: 30px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  background: #ffffff;
+  cursor: pointer;
+  font-size: 12pt;
+  font-weight: bolder;
+}
+
+.time-ticks {
+  position: absolute;
+  top: 80px;
+  left: 33px;
+  width: calc(100% - 357px);
+  display: flex;
+  justify-content: space-between;
+}
+
+.time-ticks p {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  width: 1px;
+  background: #D3D3D3;
+  height: 5px;
+  line-height: 30px;
+  margin: 0 0 20px 0;
+  font-size: 8pt;
+}
+
+/* content styles */
+#content {
+  width: 100%;
+  height: 100%;
+  margin: 0px;
+  background-color: #f6f6f6;
+}
+
+#map {
+  width: 100%;
+  height: 100%;
+}
+
+#side-panel {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  width: 300px;
+}
+
+/* chart styles */
+.chart {
+  height: 180px;
+  margin: 0px;
+  padding: 5px;
+  border: 1px solid #ccc;
+  background-color: white;
+  border-radius: 5px;
+}
+
+.chart-title-bar {
+  height: 24px;
+  padding: 10px;
+  padding-bottom: 0px;
+  border-bottom: 1px solid #999;
+}
+
+.chart-title {
+  font-size: 10pt;
+}
+
+.chart-actions {
+  float: right;
+}
+
+a:link, a:visited, .chart-action-link {
+  color: 39f;
+  font-size: 10pt;
+  text-decoration: none;
+}
+
+.chart-container {
+  width: 100%;
+  height: 100%;
+}
+
+p {
+  color: #999;
+}
+
+/* legend-box styles */
+.legend-box {
+  max-width: 200px !important;
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  background: white;
+  padding: 10px;
+  border-radius: 5px;
+  border-color: #999;
+  border-style: solid;
+  border-width: thin;
+}
+
+.legend-box .legend-title {
+  text-align: left;
+  margin-bottom: 5px;
+  font-weight: bold;
+  font-size: 90%;
+}
+
+.legend-box .legend-scale ul {
+  margin: 0;
+  margin-bottom: 5px;
+  padding: 0;
+  float: left;
+  list-style: none;
+}
+
+.legend-box .legend-scale ul li {
+  font-size: 80%;
+  list-style: none;
+  margin-left: 0;
+  line-height: 18px;
+  margin-bottom: 2px;
+}
+
+.legend-box ul.legend-labels li span {
+  display: block;
+  float: left;
+  height: 12px;
+  width: 12px;
+  margin-right: 5px;
+  margin-left: 0;
+  border: 1px solid #999;
+  border-radius: 3px;
+}
+
+.legend-box .legend-source {
+  font-size: 70%;
+  color: #999;
+  clear: both;
+}
+
+.legend-box a {
+  color: #777;
+}
+
+/* hide vega embed actions menu */
+.vega-embed {
+  padding-right: 0px !important;
+}
+.vega-embed summary {
+  display: none !important;
+}
+
+/* custom slider styles */
+input[type=range] {
+  -webkit-appearance: none;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  width: 100%;
+  height: 6px;
+  background:#eee;
+  border: 1px solid #ccc;
+  border-radius: 0px;
+  cursor: pointer;
+}
+
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  margin-top: 0px; 
+  width: 20px;
+  height: 20px;
+  background: #fff;
+  border: 2px solid #333;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+input[type=range]:focus {
+  outline: none;
+}
