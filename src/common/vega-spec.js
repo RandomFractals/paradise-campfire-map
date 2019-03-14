@@ -28,7 +28,8 @@ export const createVegaSpec = ({map, endDateString, damageFilter}) => {
         name: "pointmapLayer0",
         sql: `SELECT conv_4326_900913_x(ST_X(omnisci_geo)) as x, 
           conv_4326_900913_y(ST_Y(omnisci_geo)) as y, 
-          DAMAGE as color, ca_butte_county_damaged_points_earliestdate.rowid 
+          DAMAGE as color, 
+          ca_butte_county_damaged_points_earliestdate.rowid 
         FROM ca_butte_county_damaged_points_earliestdate 
         WHERE ((ST_X(omnisci_geo) >= ${_sw.lng} AND ST_X(omnisci_geo) <= ${_ne.lng}) 
           AND (ST_Y(omnisci_geo) >= ${_sw.lat} AND ST_Y(omnisci_geo) <= ${_ne.lat}))
@@ -55,7 +56,7 @@ export const createVegaSpec = ({map, endDateString, damageFilter}) => {
         name: "backendChoroplethLayer3",
         format: "polys",
         geocolumn: "omnisci_geo",
-        sql: `SELECT CASE WHEN rowid IN (23, 24) THEN s2_DAMAGE ELSE NULL END as color, 
+        sql: `SELECT s2_DAMAGE as color, 
           ca_butte_county_damaged_buildings_earliestdate.rowid as rowid 
           FROM ca_butte_county_damaged_buildings_earliestdate
           WHERE perDatTime <= '${endDateString}'`
