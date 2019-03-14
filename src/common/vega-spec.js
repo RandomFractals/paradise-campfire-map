@@ -57,7 +57,8 @@ export const createVegaSpec = ({map, endDateString, damageFilter}) => {
         geocolumn: "omnisci_geo",
         sql: `SELECT CASE WHEN rowid IN (23, 24) THEN s2_DAMAGE ELSE NULL END as color, 
           ca_butte_county_damaged_buildings_earliestdate.rowid as rowid 
-          FROM ca_butte_county_damaged_buildings_earliestdate`
+          FROM ca_butte_county_damaged_buildings_earliestdate
+          WHERE perDatTime <= '${endDateString}'`
       }
     ],
     scales: [
