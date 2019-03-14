@@ -1,5 +1,5 @@
 import { default as vegaEmbed } from "vega-embed";
-import { getLabel, getColor } from "../common/damage-color-palette";
+import { getLabel, getColor } from "../common/config";
 import { zoomOut } from "../components/map";
 import { dispatcher } from "../common/dispatcher";
 
