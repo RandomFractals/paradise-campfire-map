@@ -154,6 +154,23 @@ export const createVegaSpec = ({map, endDateString, damageFilter}) => {
         transform: { projection: "mercator_map_projection" }
       },
       {
+        type: "polys",
+        from: { data: "backendChoroplethLayer3" },
+        properties: {
+          x: { field: "x" },
+          y: { field: "y" },
+          fillColor: {
+            scale: "backendChoroplethLayer3_fillColor",
+            field: "color"
+          },
+          strokeColor: "white",
+          strokeWidth: 0,
+          lineJoin: "miter",
+          miterLimit: 10
+        },
+        transform: { projection: "mercator_map_projection" }
+      },
+      {
         type: "symbol",
         from: { data: "pointmapLayer0" },
         properties: {
