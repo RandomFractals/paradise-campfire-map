@@ -39,8 +39,7 @@ export const createVegaSpec = ({map, endDateString, damageFilter}) => {
         name: "backendChoroplethLayer0",
         format: "polys",
         geocolumn: "omnisci_geo",
-        sql: `SELECT CASE WHEN rowid IN (23) THEN 1 ELSE NULL END as color,
-          fire_perim_camp.rowid as rowid 
+        sql: `SELECT fire_perim_camp.rowid as rowid 
           FROM fire_perim_camp
           WHERE perDatTime <= '${endDateString}'`
       },
@@ -93,22 +92,6 @@ export const createVegaSpec = ({map, endDateString, damageFilter}) => {
         ],
         default: "rgba(39,174,239,1)",
         nullValue: "rgba(202,202,202,1)"
-      },
-      {
-        name: "backendChoroplethLayer0_fillColor",
-        type: "ordinal",
-        domain: [1],
-        range: ["rgba(237,225,91,0.05)"],
-        nullValue: "rgba(214, 215, 214, 0.65)",
-        default: "rgba(214, 215, 214, 0.65)"
-      },
-      {
-        name: "backendChoroplethLayer1_fillColor",
-        type: "ordinal",
-        domain: [1],
-        range: ["rgba(39,174,239,0.3)"],
-        nullValue: "rgba(214, 215, 214, 0.65)",
-        default: "rgba(214, 215, 214, 0.65)"
       },
       {
         name: "backendChoroplethLayer3_fillColor",
