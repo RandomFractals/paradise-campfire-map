@@ -41,7 +41,8 @@ export const createVegaSpec = ({map, endDateString, damageFilter}) => {
         geocolumn: "omnisci_geo",
         sql: `SELECT CASE WHEN rowid IN (23) THEN 1 ELSE NULL END as color,
           fire_perim_camp.rowid as rowid 
-          FROM fire_perim_camp`
+          FROM fire_perim_camp
+          WHERE perDatTime <= '${endDateString}'`
       },
       {
         name: "backendChoroplethLayer1",
