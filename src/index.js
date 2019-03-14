@@ -24,7 +24,7 @@ function main() {
     <div class="header">
       <img class="logo" height="75px" width="75px" src="images/omni-sci-logo.png" />
       <div class="title-bar">
-        <h2 class="title">Paradise, CA 2018 Campfire</h2>
+        <h2 class="title">Paradise, CA 2018 Camp Fire</h2>
       </div>
     </div>
     <div class="counter-box">

@@ -47,7 +47,7 @@ module.exports = {
   plugins: [
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
-      title: "Paradise, CA 2018 Campfire",
+      title: "Paradise, CA 2018 Camp Fire",
       inject: false,
       template: require('html-webpack-template'),
       appMountId: 'app'
