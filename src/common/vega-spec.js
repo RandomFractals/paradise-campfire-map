@@ -142,16 +142,18 @@ export const createVegaSpec = ({map, endDateString, damageFilter}) => {
     ],
     marks: [
       {
-        type: "symbol",
-        from: { data: "pointmapLayer0" },
+        type: "polys",
+        from: { data: "backendChoroplethLayer0" },
         properties: {
-          xc: { scale: "x", field: "x" },
-          yc: { scale: "y", field: "y" },
-          fillColor: { scale: "pointmapLayer0_fillColor", field: "color" },
-          shape: "circle",
-          width: 4,
-          height: 4
-        }
+          x: { field: "x" },
+          y: { field: "y" },
+          fillColor: { value: "rgba(237,225,91,0.05)" },
+          strokeColor: "white",
+          strokeWidth: 0,
+          lineJoin: "miter",
+          miterLimit: 10
+        },
+        transform: { projection: "mercator_map_projection" }
       },
       {
         type: "polys",
@@ -166,6 +168,18 @@ export const createVegaSpec = ({map, endDateString, damageFilter}) => {
           miterLimit: 10
         },
         transform: { projection: "mercator_map_projection" }
+      },
+      {
+        type: "symbol",
+        from: { data: "pointmapLayer0" },
+        properties: {
+          xc: { scale: "x", field: "x" },
+          yc: { scale: "y", field: "y" },
+          fillColor: { scale: "pointmapLayer0_fillColor", field: "color" },
+          shape: "circle",
+          width: 4,
+          height: 4
+        }
       }
     ]
   };
