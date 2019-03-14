@@ -36,12 +36,28 @@ export const createVegaSpec = ({map, endDateString, damageFilter}) => {
         LIMIT 2000000`
       },
       {
+        name: "backendChoroplethLayer0",
+        format: "polys",
+        geocolumn: "omnisci_geo",
+        sql: `SELECT CASE WHEN rowid IN (23) THEN 1 ELSE NULL END as color,
+          fire_perim_camp.rowid as rowid 
+          FROM fire_perim_camp`
+      },
+      {
         name: "backendChoroplethLayer1",
         format: "polys",
         geocolumn: "omnisci_geo",
         sql: `SELECT ca_butte_county_parcels.rowid as rowid 
         FROM ca_butte_county_parcels 
         WHERE (ca_butte_county_parcels.LandUse ILIKE '%RS%')`
+      },
+      {
+        name: "backendChoroplethLayer3",
+        format: "polys",
+        geocolumn: "omnisci_geo",
+        sql: `SELECT CASE WHEN rowid IN (23, 24) THEN s2_DAMAGE ELSE NULL END as color, 
+          ca_butte_county_damaged_buildings_earliestdate.rowid as rowid 
+          FROM ca_butte_county_damaged_buildings_earliestdate`
       }
     ],
     scales: [
@@ -76,6 +92,42 @@ export const createVegaSpec = ({map, endDateString, damageFilter}) => {
         ],
         default: "rgba(39,174,239,1)",
         nullValue: "rgba(202,202,202,1)"
+      },
+      {
+        name: "backendChoroplethLayer0_fillColor",
+        type: "ordinal",
+        domain: [1],
+        range: ["rgba(237,225,91,0.05)"],
+        nullValue: "rgba(214, 215, 214, 0.65)",
+        default: "rgba(214, 215, 214, 0.65)"
+      },
+      {
+        name: "backendChoroplethLayer1_fillColor",
+        type: "ordinal",
+        domain: [1],
+        range: ["rgba(39,174,239,0.3)"],
+        nullValue: "rgba(214, 215, 214, 0.65)",
+        default: "rgba(214, 215, 214, 0.65)"
+      },
+      {
+        name: "backendChoroplethLayer3_fillColor",
+        type: "ordinal",
+        domain: [
+          "Destroyed (>50%)",
+          "Affected (1-9%)",
+          "Minor (10-25%)",
+          "Major (26-50%)",
+          "Other"
+        ],
+        range: [
+          "rgba(234,85,69,0.9)",
+          "rgba(189,207,50,0.9)",
+          "rgba(179,61,198,0.9)",
+          "rgba(239,155,32,0.9)",
+          "rgba(39,174,239,0.9)"
+        ],
+        nullValue: "rgba(214, 215, 214, 0.65)",
+        default: "rgba(214, 215, 214, 0.65)"
       }
     ],
     projections: [
@@ -97,8 +149,8 @@ export const createVegaSpec = ({map, endDateString, damageFilter}) => {
           yc: { scale: "y", field: "y" },
           fillColor: { scale: "pointmapLayer0_fillColor", field: "color" },
           shape: "circle",
-          width: 6,
-          height: 6
+          width: 4,
+          height: 4
         }
       },
       {
