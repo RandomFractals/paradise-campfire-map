@@ -219,7 +219,7 @@ export const getDamageDataQuery = ({map, endDateString}) => {
   left join damagequery on filler.damage = damagequery.damage;`;
 }
 
-export function updateVega(map, endDateString = "2018-11-26 00:00:00", damageFilter = "all") {
+export function updateVega(map, endDateString = '2018-11-08 00:00:00', damageFilter = 'all') {
   // get data stats
   getData(getDamageDataQuery({map, endDateString}))
     .then(result => {

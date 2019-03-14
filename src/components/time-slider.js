@@ -11,7 +11,7 @@ export function initTimeSlider() {
   // initialize time slider
   slider = document.querySelector('input.time-slider');
   slider.setAttribute('max', dayCount * ticksPerDay);
-  slider.setAttribute('value', dayCount * ticksPerDay);
+  slider.setAttribute('value', 0); // use dayCount * ticksPerDay for endDate on app load
 
   // create day ticks
   sliderTicks = document.querySelector('.time-ticks');

@@ -2,7 +2,8 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 import 'mapbox-gl/dist/mapboxgl-overrides';
 import './styles.css';
 
-import { serverInfo } from './common/config';
+import { serverInfo, startDate } from './common/config';
+import { timeFormatter } from './common/time-utils';
 import { updateVega } from './common/vega-spec';
 import { 
   getConnection, 
@@ -72,7 +73,7 @@ function main() {
     .then(status => {
       if (status && status[0] && status[0].rendering_enabled) {
         // render updated vega spec and add it to the map
-        updateVega(map);
+        updateVega(map, timeFormatter(startDate));
       } else {
         throw Error('omniSci back-end rendering is not enabled :(');
       }
