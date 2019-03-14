@@ -31,7 +31,7 @@ function main() {
     <div class="counter-box">
       <label class="counter-label"></label>
       <br />
-      <label class="time-label"></label>
+      <label class="time-label">0</label>
     </div>
     <div class="time-ticks">
     </div>
