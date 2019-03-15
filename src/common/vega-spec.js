@@ -1,9 +1,13 @@
 import { getData, renderVega } from "./mapd-connector";
 import { conv4326To900913 } from "./map-utils";
-import { getLabel, getColor } from "./config";
 import { updateMap } from "../components/map";
 import { updateCounterLabel } from '../components/counter-label';
 import { updateDamageChart } from '../components/damage-chart';
+import { labels, getColor, firePerimeterColor, parcelColor } from "./config";
+
+// initialize damage color coding from config
+const damageCategories = Object.keys(labels);
+const damageColors = damageCategories.map(damage => getColor(damage));
 
 export const createVegaSpec = ({map, endDateString, damageFilter}) => {
   // get map size
@@ -18,6 +22,7 @@ export const createVegaSpec = ({map, endDateString, damageFilter}) => {
   // console.log('vega-spec:mapBounds: (x/y)', [mapWidth, mapHeight], [xMin, xMax, yMin, yMax]);
   console.log('vega-spec:mapBounds: (NE/SW)', _ne, _sw);
   console.log('vega-spec:endDate:', endDateString, 'damageFilter:', damageFilter);
+  // console.log('vega-spec:damageCategories:', damageCategories, damageColors);
 
   // TODO: plug in date param in query (per day or hr???)
   const vegaSpec = {
@@ -25,7 +30,7 @@ export const createVegaSpec = ({map, endDateString, damageFilter}) => {
     height: mapHeight,
     data: [
       {
-        name: "pointmapLayer0",
+        name: "damagePointData",
         sql: `SELECT conv_4326_900913_x(ST_X(omnisci_geo)) as x, 
           conv_4326_900913_y(ST_Y(omnisci_geo)) as y, 
           DAMAGE as color, 
@@ -37,7 +42,7 @@ export const createVegaSpec = ({map, endDateString, damageFilter}) => {
         LIMIT 2000000`
       },
       {
-        name: "backendChoroplethLayer0",
+        name: "firePerimeterData",
         format: "polys",
         geocolumn: "omnisci_geo",
         sql: `SELECT fire_perim_camp.rowid as rowid 
@@ -45,7 +50,7 @@ export const createVegaSpec = ({map, endDateString, damageFilter}) => {
           WHERE perDatTime <= '${endDateString}'`
       },
       {
-        name: "backendChoroplethLayer1",
+        name: "parcelData",
         format: "polys",
         geocolumn: "omnisci_geo",
         sql: `SELECT ca_butte_county_parcels.rowid as rowid 
@@ -53,7 +58,7 @@ export const createVegaSpec = ({map, endDateString, damageFilter}) => {
         WHERE (ca_butte_county_parcels.LandUse ILIKE '%RS%')`
       },
       {
-        name: "backendChoroplethLayer3",
+        name: "buildingData",
         format: "polys",
         geocolumn: "omnisci_geo",
         sql: `SELECT s2_DAMAGE as color, 
@@ -76,42 +81,18 @@ export const createVegaSpec = ({map, endDateString, damageFilter}) => {
         range: "height"
       },
       {
-        name: "pointmapLayer0_fillColor",
+        name: "damagePointFillColor",
         type: "ordinal",
-        domain: [
-          "Destroyed (>50%)",
-          "Affected (1-9%)",
-          "Minor (10-25%)",
-          "Major (26-50%)",
-          "Other"
-        ],
-        range: [
-          "rgba(234,85,69,1)",
-          "rgba(189,207,50,1)",
-          "rgba(179,61,198,1)",
-          "rgba(239,155,32,1)",
-          "rgba(39,174,239,1)"
-        ],
-        default: "rgba(39,174,239,1)",
+        domain: damageCategories,
+        range: damageColors,
+        default: getColor('Other'),
         nullValue: "rgba(202,202,202,1)"
       },
       {
-        name: "backendChoroplethLayer3_fillColor",
+        name: "buildingFillColor",
         type: "ordinal",
-        domain: [
-          "Destroyed (>50%)",
-          "Affected (1-9%)",
-          "Minor (10-25%)",
-          "Major (26-50%)",
-          "Other"
-        ],
-        range: [
-          "rgba(234,85,69,0.9)",
-          "rgba(189,207,50,0.9)",
-          "rgba(179,61,198,0.9)",
-          "rgba(239,155,32,0.9)",
-          "rgba(39,174,239,0.9)"
-        ],
+        domain: damageCategories,
+        range: damageColors,
         nullValue: "rgba(214, 215, 214, 0.65)",
         default: "rgba(214, 215, 214, 0.65)"
       }
@@ -129,11 +110,11 @@ export const createVegaSpec = ({map, endDateString, damageFilter}) => {
     marks: [
       {
         type: "polys",
-        from: { data: "backendChoroplethLayer0" },
+        from: { data: "firePerimeterData" },
         properties: {
           x: { field: "x" },
           y: { field: "y" },
-          fillColor: { value: "rgba(237,225,91,0.05)" },
+          fillColor: { value: firePerimeterColor },
           strokeColor: "white",
           strokeWidth: 0,
           lineJoin: "miter",
@@ -143,11 +124,11 @@ export const createVegaSpec = ({map, endDateString, damageFilter}) => {
       },
       {
         type: "polys",
-        from: { data: "backendChoroplethLayer1" },
+        from: { data: "parcelData" },
         properties: {
           x: { field: "x" },
           y: { field: "y" },
-          fillColor: { value: "rgba(39,174,239,0.2)" },
+          fillColor: { value: parcelColor },
           strokeColor: "white",
           strokeWidth: 1,
           lineJoin: "miter",
@@ -157,12 +138,12 @@ export const createVegaSpec = ({map, endDateString, damageFilter}) => {
       },
       {
         type: "polys",
-        from: { data: "backendChoroplethLayer3" },
+        from: { data: "buildingData" },
         properties: {
           x: { field: "x" },
           y: { field: "y" },
           fillColor: {
-            scale: "backendChoroplethLayer3_fillColor",
+            scale: "buildingFillColor",
             field: "color"
           },
           strokeColor: "white",
@@ -174,11 +155,11 @@ export const createVegaSpec = ({map, endDateString, damageFilter}) => {
       },
       {
         type: "symbol",
-        from: { data: "pointmapLayer0" },
+        from: { data: "damagePointData" },
         properties: {
           xc: { scale: "x", field: "x" },
           yc: { scale: "y", field: "y" },
-          fillColor: { scale: "pointmapLayer0_fillColor", field: "color" },
+          fillColor: { scale: "damagePointFillColor", field: "color" },
           shape: "circle",
           width: 4,
           height: 4

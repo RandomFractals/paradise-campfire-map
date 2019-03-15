@@ -38,8 +38,12 @@ export const serverInfo = {
   password: 'password'
 };
 
+// fire perimeter and parcel fill colors
+export const firePerimeterColor = "rgba(237,225,91,0.05)";
+export const parcelColor = "rgba(39,174,239,0.2)"
+
 // damage color palette and labels config
-const colorPalette = {
+export const colorPalette = {
   "Destroyed (>50%)": "rgba(234,85,69,1)",
   "Major (26-50%)": "rgba(239,155,32,1)",
   "Minor (10-25%)": "rgba(179,61,198,1)",
@@ -47,7 +51,7 @@ const colorPalette = {
   "Other": "rgba(39,174,239,1)"
 };
 
-const labels = {
+export const labels = {
   "Destroyed (>50%)": ">50%",
   "Major (26-50%)": "26-50%",
   "Minor (10-25%)": "10-25%",
