@@ -19,7 +19,7 @@ function showDamage(damage = "all") {
   dispatcher.call("damageFilter", null, damage); // null = that/this context
   if (damage === "all") {
     // zoom out for full area damage display
-    zoomOut();
+    // zoomOut();
   }
 }
 
