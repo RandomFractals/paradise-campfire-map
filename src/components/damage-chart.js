@@ -68,6 +68,20 @@ export function updateDamageChart(damageData) {
         field: "count",
         type: "quantitative",
         format: ",d"
+      },
+      fillOpacity: {
+        condition: {
+          selection: "select", 
+          value: 1
+        }, 
+        value: 0.8
+      },
+      strokeWidth: {
+        condition: {
+          selection: "highlight", 
+          value: 1
+        }, 
+        value: 0.5
       }
     },
     layer: [
@@ -91,22 +105,29 @@ export function updateDamageChart(damageData) {
             type: "quantitative",
             format: ",d"
           }
+        },
+        selection: {
+          "highlight": {type: "single", empty: "none", on: "mouseover"},
+          "select": {type: "multi"},  
+          "barSelection": {
+            fields: ["damage"],
+            on: "click",
+            type: "single"
+          }
         }
-      }
+      },
     ],
-    selection: {
-      "barSelection": {
-        fields: ["damage"],
-        on: "click",
-        type: "single"
-      }
+    config: {
+      scale: {bandPaddingInner: 0.2}
     }
   };
 
   // render vega damage chart
   vegaEmbed("#damage-chart", vegaSpec, { mode: "vega-lite" }).then(result => {
     // add damage bar selection handler
-    // result.view.addSignalListener("barSelection", (name, value) => showDamage(value));
+    result.view.addSignalListener("barSelection", (name, value) => {
+      showDamage(value.damage[0]);
+    });
   });
 }
 
