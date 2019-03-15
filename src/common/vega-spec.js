@@ -3,11 +3,18 @@ import { conv4326To900913 } from "./map-utils";
 import { updateMap } from "../components/map";
 import { updateCounterLabel } from '../components/counter-label';
 import { updateDamageChart } from '../components/damage-chart';
-import { labels, getColor, firePerimeterColor, parcelColor } from "./config";
+import { labels, getLabel, getColor, firePerimeterColor, parcelColor } from "./config";
 
 // initialize damage color coding from config
 const damageCategories = Object.keys(labels);
 const damageColors = damageCategories.map(damage => getColor(damage));
+const damageLabels = getDamageLabels(damageCategories);
+
+function getDamageLabels(damageCategories) {
+  let damageLabels = {}
+  damageCategories.map(damage => damageLabels[getLabel(damage)] = damage);
+  return damageLabels;
+}
 
 export const createVegaSpec = ({map, endDateString, damageFilter}) => {
   // get map size
@@ -22,9 +29,15 @@ export const createVegaSpec = ({map, endDateString, damageFilter}) => {
   // console.log('vega-spec:mapBounds: (x/y)', [mapWidth, mapHeight], [xMin, xMax, yMin, yMax]);
   console.log('vega-spec:mapBounds: (NE/SW)', _ne, _sw);
   console.log('vega-spec:endDate:', endDateString, 'damageFilter:', damageFilter);
-  // console.log('vega-spec:damageCategories:', damageCategories, damageColors);
+  // console.log('vega-spec:damageCategories:', damageCategories, damageColors, damageLabels);
 
-  // TODO: plug in date param in query (per day or hr???)
+  // create damage query filter
+  let damageQueryFilter = '';
+  if (damageFilter !== 'all') {
+    damageQueryFilter = ` AND (DAMAGE ILIKE '%${damageLabels[damageFilter]}%')`;
+  }
+  const damageQueryFilter2 = damageQueryFilter.replace('DAMAGE', 's2_DAMAGE');
+
   const vegaSpec = {
     width: mapWidth,
     height: mapHeight,
@@ -38,16 +51,8 @@ export const createVegaSpec = ({map, endDateString, damageFilter}) => {
         FROM ca_butte_county_damaged_points_earliestdate 
         WHERE ((ST_X(omnisci_geo) >= ${_sw.lng} AND ST_X(omnisci_geo) <= ${_ne.lng}) 
           AND (ST_Y(omnisci_geo) >= ${_sw.lat} AND ST_Y(omnisci_geo) <= ${_ne.lat}))
-          AND perDatTime <= '${endDateString}'
+          AND perDatTime <= '${endDateString}' ${damageQueryFilter}
         LIMIT 2000000`
-      },
-      {
-        name: "firePerimeterData",
-        format: "polys",
-        geocolumn: "omnisci_geo",
-        sql: `SELECT fire_perim_camp.rowid as rowid 
-          FROM fire_perim_camp
-          WHERE perDatTime <= '${endDateString}'`
       },
       {
         name: "parcelData",
@@ -64,7 +69,7 @@ export const createVegaSpec = ({map, endDateString, damageFilter}) => {
         sql: `SELECT s2_DAMAGE as color, 
           ca_butte_county_damaged_buildings_earliestdate.rowid as rowid 
           FROM ca_butte_county_damaged_buildings_earliestdate
-          WHERE perDatTime <= '${endDateString}'`
+          WHERE perDatTime <= '${endDateString}' ${damageQueryFilter2}`
       }
     ],
     scales: [
@@ -110,20 +115,6 @@ export const createVegaSpec = ({map, endDateString, damageFilter}) => {
     marks: [
       {
         type: "polys",
-        from: { data: "firePerimeterData" },
-        properties: {
-          x: { field: "x" },
-          y: { field: "y" },
-          fillColor: { value: firePerimeterColor },
-          strokeColor: "white",
-          strokeWidth: 0,
-          lineJoin: "miter",
-          miterLimit: 10
-        },
-        transform: { projection: "mercator_map_projection" }
-      },
-      {
-        type: "polys",
         from: { data: "parcelData" },
         properties: {
           x: { field: "x" },
@@ -163,7 +154,8 @@ export const createVegaSpec = ({map, endDateString, damageFilter}) => {
           shape: "circle",
           width: 4,
           height: 4
-        }
+        },
+        transform: { projection: "mercator_map_projection" }
       }
     ]
   };
