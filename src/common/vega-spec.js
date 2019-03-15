@@ -154,8 +154,7 @@ export const createVegaSpec = ({map, endDateString, damageFilter}) => {
           shape: "circle",
           width: 4,
           height: 4
-        },
-        transform: { projection: "mercator_map_projection" }
+        }
       }
     ]
   };
