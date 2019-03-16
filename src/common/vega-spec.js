@@ -236,6 +236,18 @@ export const createVegaSpec = ({map, endDate, damageFilter}) => {
         transform: { projection: "mercator_map_projection" }
       },
       {
+        type: "symbol",
+        from: { data: "heatmapData"},
+        properties: {
+          shape: "hexagon-horiz",
+          xc: { field: "x" },
+          yc: { field: "y" },
+          width: 10.05,
+          height: 11.604740410711479,
+          fillColor: { scale: "heatmapColor", field:"color" }
+        }
+      },      
+      {
         type: "polys",
         from: { data: "buildingData" },
         properties: {
