@@ -2,7 +2,7 @@ let counterLabel = null;
 
 export function initCounterLabel() {
   counterLabel = document.querySelector('label.counter-label');
-  counterLabel.innerHTML = '18,804';
+  counterLabel.innerHTML = '0';
 }
 
 export function updateCounterLabel(count, color) {

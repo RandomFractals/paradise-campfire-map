@@ -7,7 +7,8 @@ body {
   padding: 0px;
   overflow-x: hidden;
   overflow-y: hidden;
-  font-family: Arial;  
+  font-family: Arial;
+  font-size: 14pt;  
 }
 
 #app {
@@ -59,7 +60,7 @@ body {
 }
 
 .time-label {
-  font-size: 11pt;
+  font-size: 12pt;
 }
 
 /* time-controls styles */
@@ -133,7 +134,7 @@ body {
 
 /* chart styles */
 .chart {
-  height: 180px;
+  height: 200px;
   margin: 0px;
   padding: 5px;
   border: 1px solid #ccc;
@@ -149,16 +150,18 @@ body {
 }
 
 .chart-title {
-  font-size: 10pt;
+  font-size: 12pt;
+  color: #999;
 }
 
 .chart-actions {
   float: right;
+  color: #39f;
 }
 
 a:link, a:visited, .chart-action-link {
-  color: 39f;
-  font-size: 10pt;
+  color: #39f;
+  font-size: 12pt;
   text-decoration: none;
 }
 

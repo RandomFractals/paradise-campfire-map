@@ -3,7 +3,8 @@ import { conv4326To900913 } from "./map-utils";
 import { updateMap } from "../components/map";
 import { updateCounterLabel } from '../components/counter-label';
 import { updateDamageChart } from '../components/damage-chart';
-import { labels, getLabel, getColor, firePerimeterColor, parcelColor } from "./config";
+import { labels, getLabel, getColor, firePerimeterColor, parcelColor, endDate } from "./config";
+import { NON_TYPE_DOMAIN_RANGE_VEGA_SCALE_PROPERTIES } from "vega-lite/build/src/scale";
 
 // initialize damage color coding from config
 const damageCategories = Object.keys(labels);
@@ -197,9 +198,15 @@ export function updateVega(map, endDateString = '2018-11-08 00:00:00', damageFil
     .then(result => {
       // NOTE: damage results are sorted by count values (see query above :)
       updateCounterLabel(result[0].val, getColor(result[0].key0));
-      updateDamageChart(result);
+      updateDamageChart(result, endDateString);
     })
     .catch(error => {
+      // show 0 counts
+      const damageData = damageCategories.map(damage => {
+        return {key0: damage, val: 0};
+      });
+      updateCounterLabel(0, getColor(damageCategories[0]));
+      updateDamageChart(damageData, endDateString);
       throw error;
     });
 
