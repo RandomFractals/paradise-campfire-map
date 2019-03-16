@@ -2,7 +2,7 @@ import { default as vegaEmbed } from "vega-embed";
 import { getLabel, getColor } from "../common/config";
 import { zoomOut } from "../components/map";
 import { dispatcher } from "../common/dispatcher";
-import { dayFormatter } from '../common/time-utils';
+import { dayFormatter, timeFormatter } from '../common/time-utils';
 
 let damageChart = null;
 export function initDamageChart() {
@@ -24,11 +24,7 @@ function showDamage(damage = "all") {
   }
 }
 
-export function updateDamageChart(damageData, endDateString) {
-  // create utc end date for the chart title bar display
-  const endDate = new Date(endDateString);
-  endDate.setUTCHours(endDate.getHours());
-
+export function updateDamageChart(damageData, endDate) {
   // transform damage data key/value pairs for the chart vega spec
   // console.log('damage-chart:updateDamageChart(): damage-data:', damageData);
   const chartData = damageData.map(damage => {

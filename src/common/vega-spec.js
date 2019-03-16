@@ -1,5 +1,6 @@
 import { getData, renderVega } from "./mapd-connector";
 import { conv4326To900913 } from "./map-utils";
+import { timeFormatter } from "./time-utils";
 import { updateMap } from "../components/map";
 import { updateCounterLabel } from '../components/counter-label';
 import { updateDamageChart } from '../components/damage-chart';
@@ -16,12 +17,13 @@ function getDamageLabels(damageCategories) {
   return damageLabels;
 }
 
-export const createVegaSpec = ({map, endDateString, damageFilter}) => {
+export const createVegaSpec = ({map, endDate, damageFilter}) => {
   // get map size
   const mapContainer = map.getContainer();
   const mapWidth = mapContainer.clientWidth;
   const mapHeight = mapContainer.clientHeight;
-  
+  const endDateString = timeFormatter(endDate);
+
   // convert NE/SW map bounds back to our custom Mercator x/y
   const {_ne, _sw} = map.getBounds();
   const [xMax, yMax] = conv4326To900913([_ne.lng, _ne.lat]);
@@ -183,7 +185,8 @@ export const createVegaSpec = ({map, endDateString, damageFilter}) => {
   return vegaSpec;
 };
 
-export const getDamageDataQuery = ({map, endDateString}) => {
+export const getDamageDataQuery = ({map, endDate}) => {
+  const endDateString = timeFormatter(endDate);
   const {_ne, _sw} = map.getBounds();
   return `with filler as(
     select DAMAGE, 
@@ -213,9 +216,9 @@ export const getDamageDataQuery = ({map, endDateString}) => {
   left join damagequery on filler.damage = damagequery.damage;`;
 }
 
-export function updateVega(map, endDateString = '2018-11-08 00:00:00', damageFilter = 'all') {
+export function updateVega(map, endDate, damageFilter = 'all') {
   // get data stats
-  getData(getDamageDataQuery({map, endDateString}))
+  getData(getDamageDataQuery({map, endDate}))
     .then(result => {
       if (damageFilter === 'all') {
         // show largest damage counter value
@@ -227,7 +230,7 @@ export function updateVega(map, endDateString = '2018-11-08 00:00:00', damageFil
         const damageValue = result.filter(damage => (damage.key0 === damageKey))[0].val;
         updateCounterLabel(damageValue, getColor(damageKey));
       }
-      updateDamageChart(result, endDateString);
+      updateDamageChart(result, endDate);
     })
     .catch(error => {
       // show 0 counts
@@ -235,12 +238,12 @@ export function updateVega(map, endDateString = '2018-11-08 00:00:00', damageFil
         return {key0: damage, val: 0};
       });
       // updateCounterLabel(0, getColor(damageCategories[0]));
-      // updateDamageChart(damageData, endDateString);
+      // updateDamageChart(damageData, endDate);
       throw error;
     });
 
   // get vega tiles for the map
-  const vegaSpec = createVegaSpec({map, endDateString, damageFilter});
+  const vegaSpec = createVegaSpec({map, endDate, damageFilter});
   renderVega(vegaSpec)
     .then(result => {
       updateMap(result);
