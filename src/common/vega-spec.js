@@ -4,7 +4,6 @@ import { updateMap } from "../components/map";
 import { updateCounterLabel } from '../components/counter-label';
 import { updateDamageChart } from '../components/damage-chart';
 import { labels, getLabel, getColor, firePerimeterColor, parcelColor, endDate } from "./config";
-import { NON_TYPE_DOMAIN_RANGE_VEGA_SCALE_PROPERTIES } from "vega-lite/build/src/scale";
 
 // initialize damage color coding from config
 const damageCategories = Object.keys(labels);
