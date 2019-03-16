@@ -102,7 +102,48 @@ export const createVegaSpec = ({map, endDate, damageFilter}) => {
           ca_butte_county_damaged_buildings_earliestdate.rowid as rowid 
           FROM ca_butte_county_damaged_buildings_earliestdate
           WHERE perDatTime <= '${endDateString}' ${damageQueryFilter2}`
-      }
+      },
+      {  
+        name: "heatmapData",
+        sql: `SELECT reg_hex_horiz_pixel_bin_x(conv_4326_900913_x(ST_X(omnisci_geo)),
+          ${xMin},${xMax},conv_4326_900913_y(ST_Y(omnisci_geo)),
+          ${yMin},${yMax},
+          ${markWidth},${markHeight},0,0,
+          ${mapWidth},${mapHeight}) as x,
+          reg_hex_horiz_pixel_bin_y(conv_4326_900913_x(ST_X(omnisci_geo)),
+          ${xMin},${xMax},conv_4326_900913_y(ST_Y(omnisci_geo)),
+          ${yMin},${yMax},
+          ${markWidth},${markHeight},0,0,
+          ${mapWidth},${mapHeight}) as y, avg(ndvi) as color
+          FROM fire_prefire_ndvi
+          WHERE ((ST_X(omnisci_geo) >= ${_sw.lng}
+            AND ST_X(omnisci_geo) <= ${_ne.lng})
+            AND (ST_Y(omnisci_geo) >= ${_sw.lat}
+            AND ST_Y(omnisci_geo) <= ${_ne.lat}))
+          GROUP BY x, y`
+      },
+      {  
+        name: "heatmapDataStats",
+        source: "heatmapData",
+        transform:[
+          {
+            type: "aggregate",
+            fields: ["color", "color", "color", "color"],
+            ops: ["min", "max", "avg", "stddev"],
+            as:["minimum", "maximum", "mean", "deviation"]
+          },
+          {  
+             type: "formula",
+             expr: "max(minimum, mean-2*deviation)",
+             as: "mincolor"
+          },
+          {  
+            type: "formula",
+            expr: "min(maximum, mean+2*deviation)",
+            as: "maxcolor"
+          }
+        ]
+      }      
     ],
     scales: [
       {
