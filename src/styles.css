@@ -150,7 +150,7 @@ body {
 }
 
 .chart-title {
-  font-size: 12pt;
+  font-size: 11pt;
   color: #999;
 }
 
@@ -161,7 +161,7 @@ body {
 
 a:link, a:visited, .chart-action-link {
   color: #39f;
-  font-size: 12pt;
+  font-size: 11pt;
   text-decoration: none;
 }
 
