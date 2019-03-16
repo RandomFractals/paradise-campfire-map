@@ -173,6 +173,27 @@ export const createVegaSpec = ({map, endDate, damageFilter}) => {
         range: damageColors,
         nullValue: "rgba(214, 215, 214, 0.65)",
         default: "rgba(214, 215, 214, 0.65)"
+      },
+      {  
+        name: "heatmapColor",
+        type: "quantize",
+        domain: {  
+          data: "heatmapDataStats",
+          fields: ["mincolor", "maxcolor"]
+        },
+        range: [  
+          `rgba(242, 255, 246, ${defaultOpacity})`,
+          `rgba(229, 252, 236, ${defaultOpacity})`,
+          `rgba(201, 237, 212, ${defaultOpacity})`,
+          `rgba(174, 226, 190, ${defaultOpacity})`,
+          `rgba(150, 211, 168, ${defaultOpacity})`,
+          `rgba(100, 173, 122, ${defaultOpacity})`,
+          `rgba(60, 150, 86, ${defaultOpacity})`,
+          `rgba(12, 127, 46, ${defaultOpacity})`,
+          `rgba(0, 79, 23, ${defaultOpacity})`
+        ],
+        default: `rgba(13, 8, 135, ${defaultOpacity})`,
+        nullValue: `rgba(153, 153, 153, ${defaultOpacity})`
       }
     ],
     projections: [
