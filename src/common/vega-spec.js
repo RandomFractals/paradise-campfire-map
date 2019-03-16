@@ -217,8 +217,16 @@ export function updateVega(map, endDateString = '2018-11-08 00:00:00', damageFil
   // get data stats
   getData(getDamageDataQuery({map, endDateString}))
     .then(result => {
-      // NOTE: damage results are sorted by count values (see query above :)
-      updateCounterLabel(result[0].val, getColor(result[0].key0));
+      if (damageFilter === 'all') {
+        // show largest damage counter value
+        // NOTE: damage results are sorted by count values (see query above :)
+        updateCounterLabel(result[0].val, getColor(result[0].key0));
+      } else {
+        // show selected damage filter counter in app header
+        const damageKey = damageLabels[damageFilter];
+        const damageValue = result.filter(damage => (damage.key0 === damageKey))[0].val;
+        updateCounterLabel(damageValue, getColor(damageKey));
+      }
       updateDamageChart(result, endDateString);
     })
     .catch(error => {
