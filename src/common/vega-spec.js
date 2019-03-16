@@ -55,6 +55,14 @@ export const createVegaSpec = ({map, endDateString, damageFilter}) => {
         LIMIT 2000000`
       },
       {
+        name: "firePerimeterData",
+        format: "polys",
+        geocolumn: "omnisci_geo",
+        sql: `SELECT fire_perim_camp.rowid as rowid 
+          FROM fire_perim_camp
+          WHERE perDatTime <= '${endDateString}'`
+      },
+      {
         name: "parcelData",
         format: "polys",
         geocolumn: "omnisci_geo",
@@ -113,6 +121,20 @@ export const createVegaSpec = ({map, endDateString, damageFilter}) => {
       }
     ],
     marks: [
+      {
+        type: "polys",
+        from: { data: "firePerimeterData" },
+        properties: {
+          x: { field: "x" },
+          y: { field: "y" },
+          fillColor: { value: firePerimeterColor },
+          strokeColor: "white",
+          strokeWidth: 0,
+          lineJoin: "miter",
+          miterLimit: 10
+        },
+        transform: { projection: "mercator_map_projection" }
+      },      
       {
         type: "polys",
         from: { data: "parcelData" },
