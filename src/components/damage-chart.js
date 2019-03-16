@@ -41,10 +41,15 @@ export function updateDamageChart(damageData, endDateString) {
 
   // damage bar chart vega spec
   const vegaSpec = {
-    width: 200,
+    width: 190,
     height: 120,
     padding: 5,
-    title: dayFormatter(endDate),
+    title: {
+      text: dayFormatter(endDate),
+      font: "Arial",
+      fontWeight: "normal",
+      fontSize: 13
+    },
     data: {
       values: chartData
     },
@@ -104,6 +109,8 @@ export function updateDamageChart(damageData, endDateString) {
           type: "text",
           align: "left",
           baseline: "middle",
+          fontSize: 13,
+          fontWeight: "bold",
           dx: 3
         },
         encoding: {
@@ -126,8 +133,8 @@ export function updateDamageChart(damageData, endDateString) {
     ],
     config: {
       scale: {bandPaddingInner: 0.2},
-      axis: {labelColor: "#333", "labelFontSize": 12, labelFontWeight: "bold"},
-      axisBottom: {labelColor: "#666"}
+      axis: {labelColor: "#666", "labelFontSize": 12, labelFontWeight: "bold"},
+      axisBottom: {labelColor: "#999"}
     }
   };
 
