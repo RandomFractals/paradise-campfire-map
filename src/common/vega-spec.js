@@ -50,17 +50,16 @@ export const createVegaSpec = ({map, endDate, damageFilter}) => {
   }
   const damageQueryFilter2 = damageQueryFilter.replace('DAMAGE', 's2_DAMAGE');
 
-  // set dynamic stroke/point scales and colors based on map zoom
+  // set dynamic stroke/point/mark scales based on map zoom
   const mapZoom = map.getZoom();
-  const mapZoomMin = map.getMinZoom();
-  const mapZoomMax = map.getMaxZoom();
-  const strokeWidthScale = scaleLinear().domain([mapZoomMin, mapZoomMax]).range([5, 1]);
-  const pointScale = scaleLinear().domain([mapZoomMin, mapZoomMax]).range([0, 5]);
+  const mapZoomMinMax = [map.getMinZoom(), map.getMaxZoom()];
+  const strokeWidthScale = scaleLinear().domain(mapZoomMinMax).range([5, 1]);
+  const pointScale = scaleLinear().domain(mapZoomMinMax).range([0, 5]);
   const [markWidth, markHeight] = getMarkSize(_ne.lat, mapZoom);
 
   // set default and dynamic damage color opacity based on map zoom
   const defaultOpacity = 0.3; // for null and default color values
-  const damageColorAlphaScale = scaleLinear().domain([mapZoomMin, mapZoomMax]).range([0.05, 0.4]);
+  const damageColorAlphaScale = scaleLinear().domain(mapZoomMinMax).range([0.05, 0.4]);
   damageColors[0] = getColor('Destroyed (>50%)').replace('0.7', damageColorAlphaScale(mapZoom));
 
   const vegaSpec = {
