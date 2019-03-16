@@ -28,7 +28,7 @@ export function updateDamageChart(damageData, endDateString) {
   // create utc end date for the chart title bar display
   const endDate = new Date(endDateString);
   endDate.setUTCHours(endDate.getHours());
-  
+
   // transform damage data key/value pairs for the chart vega spec
   // console.log('damage-chart:updateDamageChart(): damage-data:', damageData);
   const chartData = damageData.map(damage => {
@@ -41,9 +41,9 @@ export function updateDamageChart(damageData, endDateString) {
 
   // damage bar chart vega spec
   const vegaSpec = {
-    width: 180,
+    width: 200,
     height: 120,
-    padding: 10,
+    padding: 5,
     title: dayFormatter(endDate),
     data: {
       values: chartData
