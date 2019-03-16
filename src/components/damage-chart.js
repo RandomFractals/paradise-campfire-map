@@ -125,7 +125,9 @@ export function updateDamageChart(damageData, endDateString) {
       },
     ],
     config: {
-      scale: {bandPaddingInner: 0.2}
+      scale: {bandPaddingInner: 0.2},
+      axis: {labelColor: "#333", "labelFontSize": 12, labelFontWeight: "bold"},
+      axisBottom: {labelColor: "#666"}
     }
   };
 
