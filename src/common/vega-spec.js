@@ -1,3 +1,4 @@
+import { scaleLinear } from 'd3-scale';
 import { getData, renderVega } from "./mapd-connector";
 import { conv4326To900913 } from "./map-utils";
 import { timeFormatter } from "./time-utils";
@@ -17,6 +18,15 @@ function getDamageLabels(damageCategories) {
   return damageLabels;
 }
 
+function getMarkSize(neLat, zoom) {
+  const pixelSize = 10;
+  const width = 10;
+  const numBinsX = Math.round(width / pixelSize);
+  const markWidth = width / numBinsX;
+  const markHeight = 2 * markWidth / Math.sqrt(3.0);
+  return [markWidth, markHeight];
+}
+
 export const createVegaSpec = ({map, endDate, damageFilter}) => {
   // get map size
   const mapContainer = map.getContainer();
@@ -31,7 +41,7 @@ export const createVegaSpec = ({map, endDate, damageFilter}) => {
   // console.log('vega-spec:mapBounds: (x/y)', [mapWidth, mapHeight], [xMin, xMax, yMin, yMax]);
   console.log('vega-spec:mapBounds: (NE/SW)', _ne, _sw);
   console.log('vega-spec:endDate:', endDateString, 'damageFilter:', damageFilter);
-  // console.log('vega-spec:damageCategories:', damageCategories, damageColors, damageLabels);
+  //console.log('vega-spec:damageCategories:', damageCategories, damageColors, damageLabels);
 
   // create damage query filter
   let damageQueryFilter = '';
@@ -39,6 +49,19 @@ export const createVegaSpec = ({map, endDate, damageFilter}) => {
     damageQueryFilter = ` AND (DAMAGE ILIKE '%${damageLabels[damageFilter]}%')`;
   }
   const damageQueryFilter2 = damageQueryFilter.replace('DAMAGE', 's2_DAMAGE');
+
+  // set dynamic stroke/point scales and colors based on map zoom
+  const mapZoom = map.getZoom();
+  const mapZoomMin = map.getMinZoom();
+  const mapZoomMax = map.getMaxZoom();
+  const strokeWidthScale = scaleLinear().domain([mapZoomMin, mapZoomMax]).range([5, 1]);
+  const pointScale = scaleLinear().domain([mapZoomMin, mapZoomMax]).range([0, 5]);
+  const [markWidth, markHeight] = getMarkSize(_ne.lat, mapZoom);
+
+  // set default and dynamic damage color opacity based on map zoom
+  const defaultOpacity = 0.3; // for null and default color values
+  const damageColorAlphaScale = scaleLinear().domain([mapZoomMin, mapZoomMax]).range([0.05, 0.4]);
+  damageColors[0] = getColor('Destroyed (>50%)').replace('0.7', damageColorAlphaScale(mapZoom));
 
   const vegaSpec = {
     width: mapWidth,
@@ -145,7 +168,7 @@ export const createVegaSpec = ({map, endDate, damageFilter}) => {
           y: { field: "y" },
           fillColor: { value: parcelColor },
           strokeColor: "white",
-          strokeWidth: 1,
+          strokeWidth: 0,
           lineJoin: "miter",
           miterLimit: 10
         },
@@ -161,8 +184,11 @@ export const createVegaSpec = ({map, endDate, damageFilter}) => {
             scale: "buildingFillColor",
             field: "color"
           },
-          strokeColor: "white",
-          strokeWidth: 0,
+          strokeColor: {
+            scale: "buildingFillColor",
+            field: "color"
+          },
+          strokeWidth: strokeWidthScale(mapZoom),
           lineJoin: "miter",
           miterLimit: 10
         },
@@ -176,8 +202,8 @@ export const createVegaSpec = ({map, endDate, damageFilter}) => {
           yc: { scale: "y", field: "y" },
           fillColor: { scale: "damagePointFillColor", field: "color" },
           shape: "circle",
-          width: 4,
-          height: 4
+          width: pointScale(mapZoom),
+          height: pointScale(mapZoom)
         }
       }
     ]

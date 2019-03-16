@@ -1,5 +1,5 @@
 // map data over time playback start/end date
-export const startDate = new Date('2018-11-08');
+export const startDate = new Date('2018-11-08T06:00:00Z'); // Nov 8, 6AM ISO
 export const endDate = new Date('2018-11-26');
 
 // time slider minor/hours ticks/steps per day 
@@ -24,9 +24,9 @@ export const mapboxConfig = {
   style: 'mapbox://styles/mapbox/light-v9',
   center: [-121.62, 39.70],
   zoom: 2,
-  minZoom: 2,
-  maxZoom: 16,
-  maxBounds: [[-121.82, 39.60], [-121.38, 39.86]]
+  minZoom: 11,
+  maxZoom: 15.7,
+  maxBounds: [[-121.79, 39.63], [-121.34, 39.87]]
 };
 
 // mapd server connection string
@@ -39,16 +39,16 @@ export const serverInfo = {
 };
 
 // fire perimeter and parcel fill colors
-export const firePerimeterColor = "rgba(237,225,91,0.05)";
-export const parcelColor = "rgba(39,174,239,0.2)"
+export const firePerimeterColor = "rgba(237, 225, 91, 0.02)";
+export const parcelColor = "rgba(39, 174, 239, 0.2)";
 
 // damage color palette and labels config
 export const colorPalette = {
-  "Destroyed (>50%)": "rgba(234,85,69,1)",
-  "Major (26-50%)": "rgba(239,155,32,1)",
-  "Minor (10-25%)": "rgba(179,61,198,1)",
-  "Affected (1-9%)": "rgba(189,207,50,1)",
-  "Other": "rgba(39,174,239,1)"
+  "Destroyed (>50%)": "rgba(216, 49, 49, 0.7)",
+  "Major (26-50%)": "rgba(255, 110, 0, 1)",
+  "Minor (10-25%)": "rgba(255, 204, 0, 1)",
+  "Affected (1-9%)": "rgba(189,207,50,1)", // "rgba(255, 249, 211, 1)",
+  "Other": "rgba(255, 246, 165, 1)"
 };
 
 export const labels = {
