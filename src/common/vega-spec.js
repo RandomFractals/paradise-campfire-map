@@ -226,8 +226,8 @@ export function updateVega(map, endDateString = '2018-11-08 00:00:00', damageFil
       const damageData = damageCategories.map(damage => {
         return {key0: damage, val: 0};
       });
-      updateCounterLabel(0, getColor(damageCategories[0]));
-      updateDamageChart(damageData, endDateString);
+      // updateCounterLabel(0, getColor(damageCategories[0]));
+      // updateDamageChart(damageData, endDateString);
       throw error;
     });
 
