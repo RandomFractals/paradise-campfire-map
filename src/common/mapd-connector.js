@@ -51,10 +51,10 @@ async function logTables() {
   // tables.map(table => logFields(table.name));
   // TODO: comment this out for prod/demo deploy
   // log fields only for the tables used by this app
-  logFields('fire_perim_camp');
-  logFields('ca_butte_county_parcels');
-  logFields('ca_butte_county_damaged_buildings_earliestdate');
-  logFields('ca_butte_county_damaged_points_earliestdate');
+  // logFields('fire_perim_camp');
+  // logFields('ca_butte_county_parcels');
+  // logFields('ca_butte_county_damaged_buildings_earliestdate');
+  // logFields('ca_butte_county_damaged_points_earliestdate');
 }
 
 async function logFields(tableName) {
