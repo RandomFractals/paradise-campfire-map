@@ -2,13 +2,13 @@ import { dispatch } from 'd3-dispatch';
 import { updateVega } from './vega-spec';
 import { getMap } from '../components/map';
 import { updateTimeLabel } from '../components/time-label';
-import { endDate } from './config.js';
+import { startDate } from './config.js';
 
 // use d3 dispatcher for app interactions
 export const dispatcher = dispatch('sliderInput', 'mapMove', 'damageFilter');
 
 // date/data filters
-let endDateFilter = endDate;
+let endDateFilter = startDate;
 let damageFilter = 'all';
 
 dispatcher.on('damageFilter', (damage) => {

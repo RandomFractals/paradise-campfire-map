@@ -39,9 +39,9 @@ export const createVegaSpec = ({map, endDate, damageFilter}) => {
   const [xMax, yMax] = conv4326To900913([_ne.lng, _ne.lat]);
   const [xMin, yMin] = conv4326To900913([_sw.lng, _sw.lat]);
   // console.log('vega-spec:mapBounds: (x/y)', [mapWidth, mapHeight], [xMin, xMax, yMin, yMax]);
-  console.log('vega-spec:mapBounds: (NE/SW)', _ne, _sw);
-  console.log('vega-spec:endDate:', endDateString, 'damageFilter:', damageFilter);
-  //console.log('vega-spec:damageCategories:', damageCategories, damageColors, damageLabels);
+  // console.log('vega-spec:mapBounds: (NE/SW)', _ne, _sw);
+  // console.log('vega-spec:endDate:', endDateString, 'damageFilter:', damageFilter);
+  // console.log('vega-spec:damageCategories:', damageCategories, damageColors, damageLabels);
 
   // create damage query filter
   let damageQueryFilter = '';
