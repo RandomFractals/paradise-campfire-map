@@ -229,7 +229,7 @@ export const createVegaSpec = ({map, endDate, damageFilter}) => {
           y: { field: "y" },
           fillColor: { value: parcelColor },
           strokeColor: "white",
-          strokeWidth: 0,
+          strokeWidth: 0.5,
           lineJoin: "miter",
           miterLimit: 10
         },
