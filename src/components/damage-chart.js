@@ -96,7 +96,7 @@ export function updateDamageChart(damageData, endDate) {
       {
         mark: {
           type: "bar",
-          stroke: "#eee",
+          stroke: "#333",
           cursor: "pointer"  
         }
       },
