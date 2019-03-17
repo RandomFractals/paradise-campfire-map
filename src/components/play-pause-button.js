@@ -36,7 +36,7 @@ function play () {
   playPauseButton.innerHTML = '||'; // pause
   sliderValue = getValue();
   timerInstance = interval(elapsed => {
-    console.log('play-pause-control:time-elapsed:', elapsed);
+    // console.log('play-pause-control:time-elapsed:', elapsed);
     if (!isPlaying) {
       stop();
     } else if (sliderValue > (dayCount * ticksPerDay)) {
