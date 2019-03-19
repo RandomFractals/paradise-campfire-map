@@ -41,7 +41,7 @@ async function getConnectionStatus(connection) {
 
 function saveConnection(mapdConnection) {
   connection = mapdConnection;
-  logTables();
+  // logTables();
 }
 
 async function logTables() {
