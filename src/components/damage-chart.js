@@ -34,6 +34,7 @@ export function updateDamageChart(damageData, endDate) {
       count: damage.val
     };
   });
+  // console.log('damage-chart:updateDamageChart(): chart-data:', chartData);
 
   // damage bar chart vega spec
   const vegaSpec = {
@@ -135,12 +136,16 @@ export function updateDamageChart(damageData, endDate) {
   };
 
   // render vega damage chart
-  vegaEmbed("#damage-chart", vegaSpec, { mode: "vega-lite" }).then(result => {
-    // add damage bar selection handler
-    result.view.addSignalListener("barSelection", (name, value) => {
-      showDamage(value.damage[0]);
+  vegaEmbed("#damage-chart", vegaSpec, {mode: "vega-lite"})
+    .then(result => {
+      // add damage bar selection handler
+      result.view.addSignalListener("barSelection", (name, value) => {
+        showDamage(value.damage[0]);
+      });
+    })
+    .catch(error => {
+      console.error('damage-chart:updateDamageChart:error', error);
     });
-  });
 }
 
 export default damageChart;
