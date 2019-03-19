@@ -103,7 +103,7 @@ export const createVegaSpec = ({map, endDate, damageFilter}) => {
           FROM ca_butte_county_damaged_buildings_earliestdate
           WHERE perDatTime <= '${endDateString}' ${damageQueryFilter2}`
       },
-      {  
+/*    {  
         name: "heatmapData",
         sql: `SELECT reg_hex_horiz_pixel_bin_x(conv_4326_900913_x(ST_X(omnisci_geo)),
           ${xMin},${xMax},conv_4326_900913_y(ST_Y(omnisci_geo)),
@@ -121,7 +121,7 @@ export const createVegaSpec = ({map, endDate, damageFilter}) => {
             AND (ST_Y(omnisci_geo) >= ${_sw.lat}
             AND ST_Y(omnisci_geo) <= ${_ne.lat}))
           GROUP BY x, y`
-      },
+      }, 
       {  
         name: "heatmapDataStats",
         source: "heatmapData",
@@ -143,7 +143,7 @@ export const createVegaSpec = ({map, endDate, damageFilter}) => {
             as: "maxcolor"
           }
         ]
-      }      
+      } */
     ],
     scales: [
       {
@@ -163,38 +163,33 @@ export const createVegaSpec = ({map, endDate, damageFilter}) => {
         type: "ordinal",
         domain: damageCategories,
         range: damageColors,
-        default: getColor('Other'),
-        nullValue: "rgba(202,202,202,1)"
+        nullValue: "rgba(214, 215, 214, 0.05)", // 0.6
+        default: "rgba(214, 215, 214, 0.05)" // 0.6
       },
       {
         name: "buildingFillColor",
         type: "ordinal",
         domain: damageCategories,
         range: damageColors,
-        nullValue: "rgba(214, 215, 214, 0.65)",
-        default: "rgba(214, 215, 214, 0.65)"
+        nullValue: "rgba(214, 215, 214, 0.05)", // 0.6
+        default: "rgba(214, 215, 214, 0.05)" // 0.6
       },
-      {  
+/*    {  
         name: "heatmapColor",
         type: "quantize",
         domain: {  
           data: "heatmapDataStats",
           fields: ["mincolor", "maxcolor"]
         },
-        range: [  
-          `rgba(242, 255, 246, ${defaultOpacity})`,
-          `rgba(229, 252, 236, ${defaultOpacity})`,
-          `rgba(201, 237, 212, ${defaultOpacity})`,
-          `rgba(174, 226, 190, ${defaultOpacity})`,
-          `rgba(150, 211, 168, ${defaultOpacity})`,
-          `rgba(100, 173, 122, ${defaultOpacity})`,
-          `rgba(60, 150, 86, ${defaultOpacity})`,
-          `rgba(12, 127, 46, ${defaultOpacity})`,
-          `rgba(0, 79, 23, ${defaultOpacity})`
+        range:[  
+          `rgba(10, 252, 86, 0.1)`,
+          `rgba(10, 252, 86, 0.2)`,
+          `rgba(10, 252, 86, 0.3)`,
+          `rgba(10, 252, 86, 0.4)`,
         ],
         default: `rgba(13, 8, 135, ${defaultOpacity})`,
         nullValue: `rgba(153, 153, 153, ${defaultOpacity})`
-      }
+      } */
     ],
     projections: [
       {
@@ -235,7 +230,7 @@ export const createVegaSpec = ({map, endDate, damageFilter}) => {
         },
         transform: { projection: "mercator_map_projection" }
       },
-      {
+  /*  {
         type: "symbol",
         from: { data: "heatmapData"},
         properties: {
@@ -246,7 +241,7 @@ export const createVegaSpec = ({map, endDate, damageFilter}) => {
           height: 11.604740410711479,
           fillColor: { scale: "heatmapColor", field:"color" }
         }
-      },      
+      }, */
       {
         type: "polys",
         from: { data: "buildingData" },
@@ -316,6 +311,16 @@ export const getDamageDataQuery = ({map, endDate}) => {
 }
 
 export function updateVega(map, endDate, damageFilter = 'all') {
+  // set map style based on zoom level
+  const mapStyle = map.getStyle().name;
+  // console.log('vega-spec:updateVega:mapStyle:', mapStyle);
+  /*
+  if (map.getZoom() > 16 && mapStyle !== 'Mapbox Satellite Streets') {
+    map.setStyle('mapbox://styles/mapbox/satellite-streets-v9');
+  } else if (mapStyle !== 'Mapbox Light') {
+    map.setStyle('mapbox://styles/mapbox/light-v9');
+  }*/
+
   // get data stats
   getData(getDamageDataQuery({map, endDate}))
     .then(result => {
@@ -336,8 +341,9 @@ export function updateVega(map, endDate, damageFilter = 'all') {
       const damageData = damageCategories.map(damage => {
         return {key0: damage, val: 0};
       });
-      // updateCounterLabel(0, getColor(damageCategories[0]));
-      // updateDamageChart(damageData, endDate);
+      updateCounterLabel(0, getColor(damageCategories[0]));
+      updateDamageChart(damageData, endDate);
+      console.error('vega-spec:updateVega:getData:error', error);
       throw error;
     });
 
@@ -348,6 +354,7 @@ export function updateVega(map, endDate, damageFilter = 'all') {
       updateMap(result);
     })
     .catch(error => {
+      console.error('vega-spec:updateVega:renderVega:error', error);      
       throw error;
     });
 };

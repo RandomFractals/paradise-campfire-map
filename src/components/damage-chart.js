@@ -144,7 +144,7 @@ export function updateDamageChart(damageData, endDate) {
       });
     })
     .catch(error => {
-      console.error('damage-chart:updateDamageChart:error', error);
+      // console.error('damage-chart:updateDamageChart:error', error);
     });
 }
 
