@@ -19,7 +19,7 @@ body {
 
 /* header styles */
 .header {
-  height: 50px;
+  height: 32px;
   display: flex;
   margin-right: 260px;
   padding-top: 12px;
@@ -38,13 +38,13 @@ body {
 .counter-box {
   width: 240px;
   position: absolute;
-  top: 10px;
+  top: 0px;
   right: 20px;
   text-align: left;
 }
 
 .counter-label {
-  font-size: 36pt;
+  font-size: 30pt;
   font-weight: bold;
   color: rgba(234,85,69,1);
 }
@@ -82,7 +82,7 @@ body {
 
 .time-ticks {
   position: absolute;
-  top: 80px;
+  top: 62px;
   left: 33px;
   width: calc(100% - 357px);
   display: flex;
