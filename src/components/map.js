@@ -8,9 +8,9 @@ export const initMap = () => {
   // create mapbox map
   map = new mapboxgl.Map(mapboxConfig);
 
-  // add basic nav controls
+  // add basic map nav controls
   const navigationControls = new mapboxgl.NavigationControl({showCompass: false, showZoom: true});
-  map.addControl(navigationControls, 'top-left'); // position
+  map.addControl(navigationControls, 'top-right'); // position
 
   // add map move event handler
   function update() {
