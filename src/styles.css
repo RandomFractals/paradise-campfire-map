@@ -7,7 +7,7 @@ body {
   padding: 0px;
   overflow-x: hidden;
   overflow-y: hidden;
-  font-family: Arial;
+  font-family: 'Roboto', sans-serif;
   font-size: 14pt;  
 }
 
@@ -19,29 +19,19 @@ body {
 
 /* header styles */
 .header {
-  height: 60px;
-  font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+  height: 50px;
   display: flex;
-  padding: 0px;
   margin-right: 260px;
+  padding-top: 12px;
 }
 
-.logo {
-  height: calc(100% - 10px);
-  width: auto;
-  display: block;
-  padding-left: 15px;
-  padding-right: 15px;
-}
-
-.title-bar {
-  height: 100%;
-  flex-grow: 2;
+.logo, .title {
+  margin-left: 24px;
+  height: 18px;
 }
 
 .title {
-  width: 100%;
-  font-size: 18pt;
+  margin-left: 64px;
 }
 
 /* counter-box styles */

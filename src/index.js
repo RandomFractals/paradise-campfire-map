@@ -21,10 +21,8 @@ function main() {
   // set webapp markup
   document.querySelector("#app").innerHTML = `
     <div class="header">
-      <img class="logo" height="75px" width="75px" src="images/omni-sci-logo.png" />
-      <div class="title-bar">
-        <h2 class="title">Paradise, CA 2018 Camp Fire</h2>
-      </div>
+      <img class="logo" src="images/logo.svg" />
+      <div class="title">Paradise, CA 2018 Camp Fire</div>
     </div>
     <div class="counter-box">
       <label class="counter-label"></label>
